@@ -1,0 +1,481 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"debr",
+				"debrisCounter"
+			],
+			[
+				"get",
+				"getTargetsInRadius"
+			],
+			[
+				"Trave",
+				"TravelMethod"
+			],
+			[
+				"cal",
+				"calcTrajectory"
+			],
+			[
+				"cool",
+				"cooldownTimer"
+			],
+			[
+				"pr",
+				"projectile"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "lib/game/main.js",
+			"settings":
+			{
+				"buffer_size": 5309,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 684,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 160.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/player.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/scene-manager.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/index.html",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/panel.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/camera.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/behavior.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/impact/game.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/building.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/impact/entity.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/fence.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/3d.js",
+		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/main.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/main.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/controller.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/game.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/views.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/locale.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/panel-manager.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/components.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/game-state-manager.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/building.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/barracks.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/totem.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/enemy.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/player.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/living.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/rich-font.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/health-bars.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/crystal.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/camera.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/enums.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/projectile-defn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/projectile.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/actions.js",
+		"/C/Users/Jordan/Documents/GitHub/Simon Says Test/index.html",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/entity.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/collision-map.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/power-up.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/home.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/test-dummy.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/particle.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/coin.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/lightning.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/input.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/particles/particle.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/skill-defn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/modifier.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger-player-upgrade.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/tinted-image.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/animation.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/image.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger-creep-spawn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger-creep-upgrade.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/lightning.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/main.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/totem.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/tower-behavior.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/projectile.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger-player-spawn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/trigger-minion-spawn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/projectile-tower.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/test.cpp",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/player-wizard.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/impact/font.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui/sliced-image.js",
+		"/C/Users/Jordan/Documents/GitHub/ImpactUI/impactui/js/app.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/sliced-image.js",
+		"/C/Users/Jordan/Documents/GitHub/ImpactUI/impactui/js/models.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/ui-component.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/arrow-poison.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/modifiers.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/mob.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/index.html",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/player.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/player-archer.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/1.0/lib/game/entities/player-swordsman.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/projectileDefn.js",
+		"/C/Users/Jordan/Documents/GitHub/PlatformerTD/2.0/lib/game/entities/spike.js",
+		"/C/Users/Jordan/AppData/Roaming/Sublime Text 2/Packages/User/JavaScript.sublime-settings"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"draw",
+			");\n",
+			"'pause'",
+			"_levelToLoad",
+			"pause",
+			"selected",
+			"draw",
+			"spawnEntity",
+			"entity",
+			"this.canMove()()",
+			"this.canMove",
+			"playerattack",
+			"&& canMove",
+			"canMove",
+			"execute",
+			"this.execute",
+			"closePanel",
+			"activate",
+			"closePanel",
+			".hide",
+			"canMove",
+			"inMenu",
+			"},*/\n",
+			"walktowards =",
+			"walktowards",
+			"attack",
+			"REMOVE",
+			"spawn.x",
+			"arrow",
+			"boomerang",
+			"boomerange",
+			"spawn",
+			"charged",
+			"ig.show",
+			"REMOVE",
+			"BehaviorAIAttackEntity",
+			"AI",
+			"5",
+			"ig.game.screen",
+			"screen",
+			".screen",
+			"screen",
+			"rscreen",
+			"maxScore",
+			"console",
+			"playerPos",
+			"handle",
+			"distance",
+			"dy, dx",
+			"flip",
+			"dy",
+			"'#020'",
+			"'#0e2'",
+			"bar",
+			"ig.blue",
+			"ig.red",
+			"redBarracks",
+			"state",
+			"ig.totems",
+			".canAttack()",
+			"canAttack()",
+			".alive",
+			"alive",
+			"barracks",
+			"nearestEntity",
+			"totem",
+			"attackTotem",
+			"console",
+			"find tote",
+			"crystal",
+			"console",
+			"ig.show",
+			"target !== null",
+			"retreat",
+			"alive",
+			"Totem",
+			"lastAttacker",
+			"findTarget",
+			"creeps",
+			"minions",
+			"owner",
+			"checkAgainst",
+			"viewDistance",
+			"heal",
+			"getHome",
+			"ig.state.red",
+			"ig.state.blue",
+			"barracks",
+			"reviving",
+			"reviv",
+			"revive",
+			"pause",
+			"coins",
+			"haslevel",
+			"COSTS 0 COINS",
+			"hasLevel",
+			"coin",
+			"kill: function",
+			"slice",
+			"kill",
+			");",
+			"300",
+			"animSheet",
+			"realMaxVel",
+			"toggleModifier",
+			"stealth",
+			"gravityFactor",
+			"score =",
+			"check",
+			"type",
+			"handle",
+			"miss",
+			"slow",
+			"stun",
+			"styb",
+			"knockedDown",
+			"this.canMove",
+			"player",
+			"}\n",
+			"modifier: [",
+			"slow",
+			"channel",
+			"this.modifier",
+			"* 0.5",
+			"modifier",
+			"damage",
+			"console",
+			"modifier: null"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"this.canMove()",
+			"ig.game._rscreen",
+			"focusPos",
+			"'rgba(0,0,0,0.7)'",
+			"'rgba(0,238,34,0.7)'",
+			".canAttack( this.owner )",
+			"creeps",
+			"COSTS {%} COINS",
+			"this.modifier = new",
+			"owner",
+			"'",
+			"followEntity",
+			"timer",
+			"this.score",
+			"this.defn",
+			"defn: ProjectileDefault",
+			"0",
+			"// url",
+			"selectedSkillIndex",
+			"selectedGroupIndex",
+			"[ 0 ], // sequence",
+			" x: -165",
+			" x: -168",
+			" x: -158",
+			"[ 0, 1, 2, 3 ], // sequence",
+			"1 // speed",
+			"[ 0 ], // sequence",
+			"0 // speed",
+			"top",
+			"ig.$new('canvas')",
+			"'",
+			"this.slices",
+			"'",
+			"basicAttack",
+			"execute(",
+			"condition",
+			"skills",
+			"data",
+			"this.execute",
+			"executing",
+			"execute: function"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "lib/game/main.js",
+					"settings":
+					{
+						"buffer_size": 5309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2077,
+								2077
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1140.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 684,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								621,
+								621
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 163.0,
+	"status_bar_visible": true
+}
