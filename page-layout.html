@@ -1,95 +1,200 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<style>
+		/* imports */
+		@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+		@import url(http://fonts.googleapis.com/css?family=Vollkorn);
+
+
+		/* reset */
+		html, body, div, span, applet, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, sub, sup, tt, var,
+		b, u, i, center,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed, 
+		figure, figcaption, footer, header, hgroup, 
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		article, aside, details, figcaption, figure, 
+		footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+		body {
+			line-height: 1;
+		}
+		ol, ul {
+			list-style: none;
+		}
+		blockquote, q {
+			quotes: none;
+		}
+		blockquote:before, blockquote:after,
+		q:before, q:after {
+			content: '';
+			content: none;
+		}
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+
+
+		/* general rules */
 		body {
 			background: #F0F2F5;
+			color: #494A4A;
 			margin: 0;
 			padding: 100px;
 		}
+		a:link, a:visited {
+			color: #4A89DC;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #6ea9fa;
+			text-decoration: underline;
+		}
+
+
+		/* article container */
 		.card {
 			position: relative;
-			background: #ffffff;
 			width: 500px;
-			margin: 0 auto;
+			margin: 0 auto 1.3em auto;
 		}
+		.card:not(:last-child)::before,
+		.card:not(:last-child)::after {
+			content: '';
+			position: absolute;
+			top: 71px;
+			left: 33px;
+			bottom: 0;
+			width: 5px;  
+			margin: 0 0 0 -2px;
+
+			background: #AAB2BD;
+			border-radius: 12px 12px 0 0;
+		}
+		.card:not(:last-child)::after {
+			top: 100%;
+			left: 33px;
+			width: 5px;  
+			height: 1.3em;
+			margin-top: -5px;
+			
+			border-radius: 0 0 12px 12px;
+		}
+
+		/* article icon */
 		.card .source { 
-			border-radius: 7px;
-			background: #ffffff;
-			border: solid 1px #e2e4e7;
+			position: relative;
 			width: 64px;
 			height: 64px;
 			float: left;
+
+			border-radius: 7px;
+			background: #ffffff;
+			border: solid 1px #e2e4e7;
 		}
+
+		/* article contents */
 		.card .contents {
+			border-radius: 7px;
+			background: #ffffff;
+			border: solid 1px #e2e4e7;
+
+			position: relative;
 			box-sizing: border-box;
-			position: absolute;
-			top: 0;
-			right: 0;
-			height: 121px;
-			padding: 11px 11px 11px 23px;
-			left: 70px;
+			width: 100%;
+			margin: 0 0 0 78px;
+			padding: 1em;
+
+			color: #656D78;
+			font: 300 11pt/1.3em 'Roboto';
 		}
-		.card svg {
+		.card .contents::before,
+		.card .contents::after {
+			content: '';
 			position: absolute;
-			top: 0;
-			right: 0;
-			height: 121px;
-			left: 70px;
+			top: 24px;
+			left: -8px;
+			width: 0; 
+			height: 0; 
+			border-right: solid 8px transparent;
+			border-top: solid 8px transparent;
+			border-bottom: solid 8px transparent;
 		}
-		.card path {
-			fill: #ffffff;
-			stroke: #e2e4e7;
-			stroke-width: 1;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-			stroke-miterlimit: 4;
-			stroke-opacity: 1;
-			stroke-dasharray: none
+		.card .contents::before {
+			border-size: 10px;
+			border-right-color: #d6d7db;
+
+			z-index: 100;
+		}
+		.card .contents::after {
+			border-right-color: #ffffff;
+
+			z-index: 101;
+			margin-left: 1px;
+		}
+
+		/* article content style */
+		.card h3 {
+			padding: 0.5em 0 0 0.5em;
+
+			color: #434A54;
+			font: 400 11pt/1.3em 'Roboto';
+		}
+		.card p {
+			padding: 0.5em 0 0.5em 0.5em;
+		}
+		.card a em {
+			opacity: 0.7;
 		}
 	</style>
-	<script>
-		var svgns = 'http://www.w3.org/2000/svg';
-
-		window.onload = function() {
-			var card = document.querySelector('.contents');
-
-			var w = card.offsetWidth, h = card.offsetHeight;
-			console.log( w, h );
-
-			var svg = document.querySelector( 'svg' );
-				svg.style.width = w+'px';
-				svg.style.height = h+'px';
-
-			var path = document.createElementNS( svgns, 'path' );
-				path.setAttributeNS( null, 'd', getBubblePath( w-14, h-2 ) );
-
-			svg.appendChild( path );
-		}
-
-		function getBubblePath( w, h ) {
-			w += 2;
-			h += 2;
-			var path =
-				'm 12.5,10.5 ' +
-				'c 0,-5 5,-10 10,-10 ' +
-				'l '+(w-21)+',0 ' +
-				'c 5,1e-5 10,5 10,10 0,28 0,'+(h-51)+' 0,'+(h-21)+' ' +
-				'0,5 -5,10 -10,10 -40,0 -'+(w-21)+',0 -'+(w-21)+',0 ' +
-				'-5,10e-6 -10,-5 -10,-10 ' +
-				'l 0,-'+(h-51)+' -12,-8 12,-8 ' +
-				'z';
-
-			return path;
-		}
-	</script>
 </head>
 <body>
 
 <section class="card">
 	<div class="source"></div>
-	<div class="contents"></div>
-	<svg></svg>
+	<article class="contents">
+		<p>Playing around with ThreeJS — <a href="">http://jordanranson.com/workbench/impact3d/ …</a></p>
+	</article>
+</section>
+
+<section class="card">
+	<div class="source"></div>
+	<article class="contents">
+		<h3>Platformer MOBA &mdash; Alpha 0.9 Update</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
+	</article>
+</section>
+
+<section class="card">
+	<div class="source"></div>
+	<article class="contents">
+		<p>3D game demo using ONLY CSS3, DIVs and some JavaScript magic — <a href="">http://keithclark.co.uk/labs/css3-fps-new/ …</a></p>
+	</article>
+</section>
+
+<section class="card">
+	<div class="source"></div>
+	<article class="contents">
+		<p>$5 for 8 great <a href=""><em>#</em>EA</a> games  — <a href="">https://www.humblebundle.com/…</a> <a href=""><em>#</em>humblebundle</a></p>
+	</article>
 </section>
 
 </body>
