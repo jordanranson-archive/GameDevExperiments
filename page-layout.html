@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+			background: #F0F2F5;
+			margin: 0;
+			padding: 100px;
+		}
+		.card {
+			position: relative;
+			background: #ffffff;
+			width: 500px;
+			margin: 0 auto;
+		}
+		.card .source { 
+			border-radius: 7px;
+			background: #ffffff;
+			border: solid 1px #e2e4e7;
+			width: 64px;
+			height: 64px;
+			float: left;
+		}
+		.card .contents {
+			box-sizing: border-box;
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 121px;
+			padding: 11px 11px 11px 23px;
+			left: 70px;
+		}
+		.card svg {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 121px;
+			left: 70px;
+		}
+		.card path {
+			fill: #ffffff;
+			stroke: #e2e4e7;
+			stroke-width: 1;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-miterlimit: 4;
+			stroke-opacity: 1;
+			stroke-dasharray: none
+		}
+	</style>
+	<script>
+		var svgns = 'http://www.w3.org/2000/svg';
+
+		window.onload = function() {
+			var card = document.querySelector('.contents');
+
+			var w = card.offsetWidth, h = card.offsetHeight;
+			console.log( w, h );
+
+			var svg = document.querySelector( 'svg' );
+				svg.style.width = w+'px';
+				svg.style.height = h+'px';
+
+			var path = document.createElementNS( svgns, 'path' );
+				path.setAttributeNS( null, 'd', getBubblePath( w-14, h-2 ) );
+
+			svg.appendChild( path );
+		}
+
+		function getBubblePath( w, h ) {
+			w += 2;
+			h += 2;
+			var path =
+				'm 12.5,10.5 ' +
+				'c 0,-5 5,-10 10,-10 ' +
+				'l '+(w-21)+',0 ' +
+				'c 5,1e-5 10,5 10,10 0,28 0,'+(h-51)+' 0,'+(h-21)+' ' +
+				'0,5 -5,10 -10,10 -40,0 -'+(w-21)+',0 -'+(w-21)+',0 ' +
+				'-5,10e-6 -10,-5 -10,-10 ' +
+				'l 0,-'+(h-51)+' -12,-8 12,-8 ' +
+				'z';
+
+			return path;
+		}
+	</script>
+</head>
+<body>
+
+<section class="card">
+	<div class="source"></div>
+	<div class="contents"></div>
+	<svg></svg>
+</section>
+
+</body>
+</html>
