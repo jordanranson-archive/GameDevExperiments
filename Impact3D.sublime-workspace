@@ -31,22 +31,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "lib/game/main.js",
-			"settings":
-			{
-				"buffer_size": 5309,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 684,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -76,6 +60,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/enums.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/camera.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/node.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/game.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/delay.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/3d.js",
 		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/entities/player.js",
 		"/C/Users/Jordan/Documents/GitHub/Impact3D/lib/game/scene-manager.js",
 		"/C/Users/Jordan/Documents/GitHub/Impact3D/index.html",
@@ -173,6 +165,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			");\n",
+			"this.three.",
+			"window.",
+			"tilesize",
+			"entity",
+			"offset",
 			"draw",
 			");\n",
 			"'pause'",
@@ -294,13 +292,7 @@
 			"}\n",
 			"modifier: [",
 			"slow",
-			"channel",
-			"this.modifier",
-			"* 0.5",
-			"modifier",
-			"damage",
-			"console",
-			"modifier: null"
+			"channel"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -308,6 +300,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"__",
+			"this.three.",
 			"this.canMove()",
 			"ig.game._rscreen",
 			"focusPos",
@@ -359,64 +353,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "lib/game/main.js",
-					"settings":
-					{
-						"buffer_size": 5309,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2077,
-								2077
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1140.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "index.html",
-					"settings":
-					{
-						"buffer_size": 684,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								621,
-								621
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
