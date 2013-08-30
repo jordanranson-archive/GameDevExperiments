@@ -59,8 +59,7 @@
 			background: #F0F2F5;
 			color: #494A4A;
 			margin: 0;
-			padding: 100px;
-			font-family: 'FontAwesome';
+			font-family: 'Roboto';
 		}
 		a:link, a:visited {
 			color: #4A89DC;
@@ -72,10 +71,21 @@
 		}
 
 
+		/* content wrapper */
+		.contents {
+			width: 500px;
+			margin: 100px auto;
+		}
+		.contents h2 {
+			font-size: 24pt;
+			margin-bottom: 0.7em;
+			text-shadow: 0 2px #e2e4e7;
+		}
+
+
 		/* article container */
 		.card {
 			position: relative;
-			width: 500px;
 			margin: 0 auto 1.3em auto;
 		}
 		.card:not(:last-child)::before,
@@ -108,32 +118,39 @@
 			height: 64px;
 			float: left;
 
-			border-radius: 7px;
-			background: #ffffff;
-			border: solid 1px #e2e4e7;
-
 			text-align: center;
 		}
 		.card .source i {
+			position: absolute;
 			display: inline-block;
+			top: 50%;
+			left: 0;
+			width: 64px;
+			height: 56px;
+			margin-top: -28px;
+			z-index: 101;
 
 			color: #656D78;
-			font: 38pt/1em 'FontAwesome';
-			height: 38pt;
-			margin-top: 7px;
+			font: 56px/1em 'FontAwesome';
 			vertical-align: middle;
 		}
+		.card .source i:last-child {
+			color: #434A54;
+			z-index: 100;
+			margin-top: -26px;
+		}
+
+		/* twitter icon */		
 		.card .source i.icon-twitter {
 			color: #4FC1E9;
 		}
+		.card .source i.icon-twitter:last-child {
+			color: #3BAFDA;
+		}
 
 		.card .source {
-			border-radius: 0;
-			background: transparent;
-			border: none;
 		}
 		.card .source i {
-			font: 42pt/1em 'FontAwesome';
 		}
 
 		/* article contents */
@@ -193,15 +210,25 @@
 </head>
 <body>
 
+<div class="contents">
+
+<h2>August 26th &ndash; September 1st</h2>
+
 <section class="card">
-	<div class="source"><i class="icon-twitter"></i></div>
+	<div class="source">
+		<i class="icon-twitter"></i>
+		<i class="icon-twitter"></i>
+	</div>
 	<article class="contents">
 		<p>Playing around with ThreeJS — <a href="">http://jordanranson.com/workbench/impact3d/ …</a></p>
 	</article>
 </section>
 
 <section class="card">
-	<div class="source"><i class="icon-align-left"></i></div>
+	<div class="source">
+		<i class="icon-align-left"></i>
+		<i class="icon-align-left"></i>
+	</div>
 	<article class="contents">
 		<h3>Platformer MOBA &mdash; Alpha 0.9 Update</h3>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
@@ -209,14 +236,20 @@
 </section>
 
 <section class="card">
-	<div class="source"><i class="icon-twitter"></i></div>
+	<div class="source">
+		<i class="icon-twitter"></i>
+		<i class="icon-twitter"></i>
+	</div>
 	<article class="contents">
 		<p>3D game demo using ONLY CSS3, DIVs and some JavaScript magic — <a href="">http://keithclark.co.uk/labs/css3-fps-new/ …</a></p>
 	</article>
 </section>
 
 <section class="card">
-	<div class="source"><i class="icon-twitter"></i></div>
+	<div class="source">
+		<i class="icon-twitter"></i>
+		<i class="icon-twitter"></i>
+	</div>
 	<article class="contents">
 		<p>$5 for 8 great <a href=""><em>#</em>EA</a> games  — <a href="">https://www.humblebundle.com/…</a> <a href=""><em>#</em>humblebundle</a></p>
 	</article>
