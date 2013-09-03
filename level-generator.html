@@ -4,6 +4,9 @@
 		var grid = [];
 		var width = 40;
 		var branches = [];
+		var seeds = [];
+		var seedIndex = 0;
+		var seed = false;
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -37,17 +40,16 @@
 					if( this.action === 'forward' && this.lastAction === 'forward' ) this.weights[0] = 50;
 					else this.weights[0] = 100;
 
-					if( this.aliveCounter < 1 ) this.weights[1] = 1;
-					else if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
+					if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
 					else this.weights[1] = 100;
 					
 					if( this.aliveCounter < 1 ) this.weights[2] = 1;
-					else if( this.action === 'branch' && this.lastAction === 'branch' ) this.weights[2] = 20;
-					else this.weights[2] = 50;
+					else if( this.action === 'branch' && this.lastAction === 'branch' ) this.weights[2] = 50;
+					else this.weights[2] = 100;
 
 					// select action and number of steps
 					this.action = this.swt( weightedRandom( 3, this.weights ), 'forward', 'turn', 'branch' );
-					this.steps = Math.round( Math.random()*2 ) + 1;
+					this.steps = 1;
 				}
 
 				// carry out action
@@ -87,26 +89,7 @@
 						var turnChance = Math.random()*3;
 						var weight = 0.2;
 
-						// on left, favor right
-						if( this.x < width*0.5 ) {
-							if( turnChance < 1-weight ) turnChance += weight;
-							if( turnChance > 1+weight ) turnChance -= weight;
-						}
-						// on right, favor left
-						if( this.x > width*0.5 ) {
-							if( turnChance < 3-weight ) turnChance += weight;
-							if( turnChance > 3+weight ) turnChance -= weight;
-						}
-						// on top, favor bottom
-						if( this.y < width*0.5 ) {
-							if( turnChance < 0-weight ) turnChance += weight;
-							if( turnChance > 0+weight ) turnChance -= weight;
-						}
-						// on bottom, favor top
-						if( this.y < width*0.5 ) {
-							if( turnChance < 2-weight ) turnChance += weight;
-							if( turnChance > 2+weight ) turnChance -= weight;
-						}
+						// TODO: favor certain directions
 
 						// clamp in a circle
 						if( turnChance > 3 ) turnChance = turnChance-4;
@@ -170,6 +153,8 @@
 
 			generateLevel();
 			drawLevel( context );
+
+			console.log( seeds.length );
 		}
 
 		function weightedRandom( choices, weight ) {
