@@ -13,19 +13,20 @@
 		Branch.prototype = {
 			pos: [],
 			steps: 0,
-			radius: 2,
+			radius: 1,
 			action: 'forward',
 			lastAction: '',
-			weights: [ 10, 10 ],
+			weights: [ 100, 100, 50 ],
 			killCounter: 0,
 			alive: true,
+			aliveCounter: 0,
 
 			swt: function( i ) { 
 				return arguments[++i] 
 			},
 
 			update: function() {
-				if( this.killCounter > 4 ) {
+				if( this.killCounter > 16 ) {
 					this.alive = false;
 				}
 
@@ -33,22 +34,20 @@
 				if( this.steps <= 0 ) {
 
 					// choose weights
-					if( this.action === 'forward' && this.lastAction === 'forward' ) {
-						this.weights[0] = 5;
-					}
-					else {
-						this.weights[0] = 10;
-					}
-					if( this.action === 'turn' && this.lastAction === 'turn' ) {
-						this.weights[1] = 5;
-					}
-					else {
-						this.weights[1] = 10;
-					}
+					if( this.action === 'forward' && this.lastAction === 'forward' ) this.weights[0] = 50;
+					else this.weights[0] = 100;
+
+					if( this.aliveCounter < 1 ) this.weights[1] = 1;
+					else if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
+					else this.weights[1] = 100;
+					
+					if( this.aliveCounter < 1 ) this.weights[2] = 1;
+					else if( this.action === 'branch' && this.lastAction === 'branch' ) this.weights[2] = 20;
+					else this.weights[2] = 50;
 
 					// select action and number of steps
-					this.action = this.swt( weightedRandom( 2, this.weights ), 'forward', 'turn' );
-					this.steps = Math.round( Math.random()*2 ) + 2;
+					this.action = this.swt( weightedRandom( 3, this.weights ), 'forward', 'turn', 'branch' );
+					this.steps = Math.round( Math.random()*2 ) + 1;
 				}
 
 				// carry out action
@@ -133,11 +132,35 @@
 
 					// branch off
 					if( this.action === 'branch' ) {
+						var canBranch, pos = [];
 
+						// choose random direction other than current direction and the direction just came from
+						var d = this.direction;
+						while( d === this.direction && d !== this.direction+2 && d !== this.direction-2 ) d = Math.round( Math.random()*3 );
+
+						// check if space is available
+						if( d === 0 ) {
+							canBranch = check(this.x, this.y-1-this.radius);
+						}
+						if( d === 1 ) {
+							canBranch = check(this.x+1+this.radius, this.y);
+						}
+						if( d === 2 ) {
+							canBranch = check(this.x, this.y+1+this.radius);
+						}
+						if( d === 3 ) {
+							canBranch = check(this.x-1-this.radius, this.y);
+						}
+
+						if( canBranch ) {
+							branches.push( new Branch( this.x, this.y, d ) );
+						}
+						this.steps = 0;
 					}
 				}
 
 				this.lastAction = this.action;
+				this.aliveCounter++;
 			}
 		}
 
@@ -177,7 +200,7 @@
 
 			var sx = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
 			var sy = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
-			carve( sx, sy, 2 );
+			carve( sx, sy, 1 );
 			branches.push( new Branch( sx, sy, 0 ) );
 
 			var branch;
