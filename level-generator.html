@@ -39,17 +39,17 @@
 					if( this.action === 'forward' && this.lastAction === 'forward' ) this.weights[0] = 50;
 					else this.weights[0] = 100;
 
-					if( this.aliveCounter < 1 ) this.weights[1] = 0;
+					if( this.aliveCounter < 2 ) this.weights[1] = 0;
 					else if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
 					else this.weights[1] = 100;
 					
-					if( this.aliveCounter < 1 ) this.weights[2] = 0;
+					if( this.aliveCounter < 2 ) this.weights[2] = 0;
 					else if( this.action === 'branch' && this.lastAction === 'branch' ) this.weights[2] = 50;
 					else this.weights[2] = 100;
 
 					// select action and number of steps
 					this.action = this.swt( weightedRandom( 3, this.weights ), 'forward', 'turn', 'branch' );
-					this.steps = 2;
+					this.steps = 1;
 				}
 
 				// carry out action
@@ -91,33 +91,50 @@
 
 						// check if can turn in a direction
 						var canTurn = false;
-						var turnChance = Math.random() < 0.5;
+						var turnChance = Math.random()*3<<0;
 
 						// check if can turn that direction
 						console.log( 'turn', this.direction, turnChance );
 						if( this.direction === 0 || this.direction === 2 ) {
-							if( turnChance ) {
+							if( turnChance === 0 ) {
 								canTurn = check(this.x+1+this.radius,this.y);
 								turnChance = 1;
-							} else {
+							} 
+							else if( turnChance === 1 ) { 
 								canTurn = check(this.x-1-this.radius,this.y);
 								turnChance = 3;
 							}
+							else {
+								if( this.direction === 0 ) {
+									canTurn = check(this.x,this.y+1+this.radius);
+									turnChance = 2;
+								}
+							}
 						}
 						if( this.direction === 1 || this.direction === 3 ) {
-							if( turnChance ) {
+							if( turnChance === 0 ) {
 								canTurn = check(this.x,this.y+1+this.radius);
 								turnChance = 2;
-							} else {
+							} 
+							else if( turnChance === 1 ) { 
 								canTurn = check(this.x,this.y-1-this.radius);
 								turnChance = 0;
+							}
+							else {
+								if( this.direction === 3 ) {
+									canTurn = check(this.x+1+this.radius,this.y);
+									turnChance = 1;
+								}
 							}
 						}
 
 						// can do, turn!
 						if( canTurn ) {
 							this.direction = turnChance;
-							this.steps = 0;
+
+							this.action = 'forward';
+							this.steps = 2;
+
 							this.killCounter = 0;
 						} else {
 							this.killCounter++;
@@ -147,7 +164,7 @@
 						}
 
 						if( canBranch ) {
-							//branches.push( new Branch( this.x, this.y, d ) );
+							branches.push( new Branch( this.x, this.y, d ) );
 						}
 						this.steps = 0;
 					}
