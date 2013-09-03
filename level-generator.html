@@ -4,9 +4,8 @@
 		var grid = [];
 		var width = 40;
 		var branches = [];
-		var seeds = [];
-		var seedIndex = 0;
-		var seed = false;
+		var ctx;
+		var speed = 10;
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -30,7 +29,7 @@
 
 			update: function() {
 				if( this.killCounter > 16 ) {
-					this.alive = false;
+					//this.alive = false;
 				}
 
 				// determine action
@@ -40,16 +39,17 @@
 					if( this.action === 'forward' && this.lastAction === 'forward' ) this.weights[0] = 50;
 					else this.weights[0] = 100;
 
-					if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
+					if( this.aliveCounter < 1 ) this.weights[1] = 0;
+					else if( this.action === 'turn' && this.lastAction === 'turn' ) this.weights[1] = 50;
 					else this.weights[1] = 100;
 					
-					if( this.aliveCounter < 1 ) this.weights[2] = 1;
+					if( this.aliveCounter < 1 ) this.weights[2] = 0;
 					else if( this.action === 'branch' && this.lastAction === 'branch' ) this.weights[2] = 50;
 					else this.weights[2] = 100;
 
 					// select action and number of steps
 					this.action = this.swt( weightedRandom( 3, this.weights ), 'forward', 'turn', 'branch' );
-					this.steps = 1;
+					this.steps = 2;
 				}
 
 				// carry out action
@@ -86,29 +86,40 @@
 
 					// turn
 					if( this.action === 'turn' ) {
-						var turnChance = Math.random()*3;
-						var weight = 0.2;
 
 						// TODO: favor certain directions
 
-						// clamp in a circle
-						if( turnChance > 3 ) turnChance = turnChance-4;
-						if( turnChance < 0 ) turnChance = turnChance+4;
-						turnChance = Math.round( turnChance );
+						// check if can turn in a direction
+						var canTurn = false;
+						var turnChance = Math.random() < 0.5;
 
-						// check if can turn in that direction
-						if( turnChance === 0 ) canTurn = check(this.x,this.y-1-this.radius);
-						if( turnChance === 1 ) canTurn = check(this.x+1+this.radius,this.y);
-						if( turnChance === 2 ) canTurn = check(this.x,this.y+1+this.radius);
-						if( turnChance === 3 ) canTurn = check(this.x-1-this.radius,this.y);
+						// check if can turn that direction
+						console.log( 'turn', this.direction, turnChance );
+						if( this.direction === 0 || this.direction === 2 ) {
+							if( turnChance ) {
+								canTurn = check(this.x+1+this.radius,this.y);
+								turnChance = 1;
+							} else {
+								canTurn = check(this.x-1-this.radius,this.y);
+								turnChance = 3;
+							}
+						}
+						if( this.direction === 1 || this.direction === 3 ) {
+							if( turnChance ) {
+								canTurn = check(this.x,this.y+1+this.radius);
+								turnChance = 2;
+							} else {
+								canTurn = check(this.x,this.y-1-this.radius);
+								turnChance = 0;
+							}
+						}
 
 						// can do, turn!
 						if( canTurn ) {
 							this.direction = turnChance;
 							this.steps = 0;
 							this.killCounter = 0;
-						}
-						else {
+						} else {
 							this.killCounter++;
 						}
 					}
@@ -136,7 +147,7 @@
 						}
 
 						if( canBranch ) {
-							branches.push( new Branch( this.x, this.y, d ) );
+							//branches.push( new Branch( this.x, this.y, d ) );
 						}
 						this.steps = 0;
 					}
@@ -149,12 +160,9 @@
 
 		window.onload = function() {
 			var canvas = document.getElementById( 'canvas' );
-			var context = canvas.getContext( '2d' );
+			ctx = canvas.getContext( '2d' );
 
 			generateLevel();
-			drawLevel( context );
-
-			console.log( seeds.length );
 		}
 
 		function weightedRandom( choices, weight ) {
@@ -174,6 +182,7 @@
 
 		function generateLevel() {
 			grid = [];
+
 			// ? = unexplored, . = carved, 0 = explored
 			for( var y = 0; y < width; y++ ) {
 				grid[y] = [];
@@ -185,23 +194,29 @@
 
 			var sx = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
 			var sy = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
+			sx = sy = Math.round( width*0.5 );
 			carve( sx, sy, 1 );
 			branches.push( new Branch( sx, sy, 0 ) );
 
 			var branch;
-			while( branches.length > 0 ) {
-				for( var i = 0; i < branches.length; i++ ) {
-					branch = branches[i];
-					branch.update();
+			var i = 0;
+			setInterval( function() {
+				if( branches.length > 0 ) {
+					for( var i = 0; i < branches.length; i++ ) {
+						branch = branches[i];
+						branch.update();
 
-					// remove from array if dead
-					if( !branch.alive ) {
-						branches.splice( branches.indexOf(branch), 1 );
+						// remove from array if dead
+						if( !branch.alive ) {
+							branches.splice( branches.indexOf(branch), 1 );
+							console.log( 'branch dead' );
+						}
 					}
-				}
-			}
 
-			return grid;
+					i++;
+					drawLevel( ctx );
+				}
+			}, speed );
 		}
 
 		function check( x, y ) {
