@@ -6,6 +6,7 @@
 		var branches = [];
 		var ctx;
 		var speed = 10;
+		var deadZones = false;
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -94,7 +95,6 @@
 						var turnChance = Math.random()*3<<0;
 
 						// check if can turn that direction
-						console.log( 'turn', this.direction, turnChance );
 						if( this.direction === 0 || this.direction === 2 ) {
 							if( turnChance === 0 ) {
 								canTurn = check(this.x+1+this.radius,this.y);
@@ -133,7 +133,7 @@
 							this.direction = turnChance;
 
 							this.action = 'forward';
-							this.steps = 2;
+							this.steps = this.radius+1;
 
 							this.killCounter = 0;
 						} else {
@@ -201,11 +201,31 @@
 			grid = [];
 
 			// ? = unexplored, . = carved, 0 = explored
-			for( var y = 0; y < width; y++ ) {
-				grid[y] = [];
 
+			for( var y = 0; y < width; y++ ) { 
+				grid[y] = [];
+			}
+			for( var y = 0; y < width; y++ ) {
 				for( var x = 0; x < width; x++ ) {
-					grid[y][x] = '?';
+					if( 
+						deadZones &&
+						Math.random() > 0.95 && 
+						y > 2 && 
+						x > 2 && 
+						(y < width*0.4 || y > width*0.6) && 
+						(x < width*0.4 || x > width*0.6) && 
+						y < width-2 && 
+						x < width-2 
+					) {
+						grid[y][x] = '0';
+						grid[y+1][x+1] = '0';
+						grid[y-1][x-1] = '0';
+						grid[y+1][x-1] = '0';
+						grid[y-1][x+1] = '0';
+					} 
+					else if( grid[y][x] !== '0' ) {
+						grid[y][x] = '?';
+					}
 				}
 			}
 
