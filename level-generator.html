@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<head>
+	<script>
+		var grid = [];
+		var width = 90;
+
+		window.onload = function() {
+			var canvas = document.getElementById( 'canvas' );
+			var context = canvas.getContext( '2d' );
+
+			generateLevel();
+			drawLevel( context );
+		}
+
+		function weightedRandom( choices, weight ) {
+			var sum = 0;
+			for(var i = 0; i < choices; i++ ) {
+		   		sum += weight[i];
+			}
+
+			var rnd = Math.random()*sum;
+			for( var i = 0; i < choices; i++ ) {
+				if( rnd < weight[i] ) return i;
+				rnd -= weight[i];
+			}
+
+			return false;
+		}
+
+		function generateLevel() {
+			grid = [];
+			// ? = unexplored, . = carved, 0 = explored
+			for( var y = 0; y < width; y++ ) {
+				grid[y] = [];
+
+				for( var x = 0; x < width; x++ ) {
+					grid[y][x] = '?';
+				}
+			}
+
+			var x, y = x = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
+			var pos, steps = 0;
+			var radius = 2;
+			var action, lastAction = action = 'forward';
+			var direction = 1; // 0 is up, increment clockwise
+			var weights = [ 10, 10 ];
+
+			var swt = function(i) { return arguments[++i] };
+
+			carve( x, y, 2 );
+
+			for( var i = 0; i < 100; i++ ) {
+
+				// determine action
+				if( steps <= 0 ) {
+
+					// choose weights
+					if( action === 'foward' && lastAction === 'forward' ) {
+						weights[0] = 5;
+					}
+					else {
+						weights[0] = 10;
+					}
+					if( action === 'turn' && lastAction === 'turn' ) {
+						weights[1] = 5;
+					}
+					else {
+						weights[1] = 10;
+					}
+
+					// select action and number of steps
+					action = swt( weightedRandom( 2, weights ), 'forward', 'turn' );
+					steps = Math.round( Math.random()*2 ) + 2;
+
+					console.log( action, steps, direction );
+				}
+
+				// carry out action
+				if( steps > 0 ) {
+
+					// move forward
+					if( action === 'forward' ) {
+						var canMove;
+						if( direction === 0 ) {
+							canMove = check(x,y-1-radius);
+							if( canMove ) y--;
+						}
+						if( direction === 1 ) {
+							canMove = check(x+1+radius,y);
+							if( canMove ) x++;
+						}
+						if( direction === 2 ) {
+							canMove = check(x,y+1+radius);
+							if( canMove ) y++;
+						}
+						if( direction === 3 ) {
+							canMove = check(x-1-radius,y);
+							if( canMove ) x--;
+						}
+
+						if( canMove ) {
+							carve( x, y, radius );
+							steps--;
+						}
+					}
+
+					// turn
+					if( action === 'turn' ) {
+						var turnChance = Math.random()*3;
+						var weight = 0.2;
+
+						// on left, favor right
+						if( x < width*0.5 ) {
+							if( turnChance < 1-weight ) turnChance += weight;
+							if( turnChance > 1+weight ) turnChance -= weight;
+						}
+						// on right, favor left
+						if( x > width*0.5 ) {
+							if( turnChance < 3-weight ) turnChance += weight;
+							if( turnChance > 3+weight ) turnChance -= weight;
+						}
+						// on top, favor bottom
+						if( y < width*0.5 ) {
+							if( turnChance < 0-weight ) turnChance += weight;
+							if( turnChance > 0+weight ) turnChance -= weight;
+						}
+						// on bottom, favor top
+						if( y < width*0.5 ) {
+							if( turnChance < 2-weight ) turnChance += weight;
+							if( turnChance > 2+weight ) turnChance -= weight;
+						}
+
+						// clamp in a circle
+						if( turnChance > 3 ) turnChance = turnChance-4;
+						if( turnChance < 0 ) turnChance = turnChance+4;
+						turnChance = Math.round( turnChance );
+
+						// check if can turn in that direction
+						if( turnChance === 0 ) canTurn = check(x,y-1-radius);
+						if( turnChance === 1 ) canTurn = check(x+1+radius,y);
+						if( turnChance === 2 ) canTurn = check(x,y+1+radius);
+						if( turnChance === 3 ) canTurn = check(x-1-radius,y);
+
+						// can do, turn!
+						if( canTurn ) {
+							direction = turnChance;
+							steps = 0;
+						}
+						console.log( '* try turning', turnChance );
+					}
+
+					// branch off
+					if( action === 'branch' ) {
+
+					}
+				}
+
+				lastAction = action;
+			}
+
+			return grid;
+		}
+
+		function check( x, y ) {
+			if( x < 0 ) return false;
+			if( y < 0 ) return false;
+			if( x > width ) return false;
+			if( y > width ) return false;
+
+			if( grid[y][x] && grid[y][x] === '?' ) return true;
+
+			return false;
+		}
+
+		function carve( x, y, radius ) {
+			for( var j = -radius; j <= radius; j++ ) {
+				for( var k = -radius; k <= radius; k++ ) {
+					if( check(x+k,y+j) ) grid[y+j][x+k] = '0';
+				}
+			}
+			grid[y][x] = '.';
+		}
+
+		function drawLevel( context ) {
+			context.fillStyle = '#333';
+			context.fillRect( 0, 0, 360, 360 );
+
+			for( var y = 0; y < grid.length; y++ ) {
+				for( var x = 0; x < grid[y].length; x++ ) {
+					if( grid[y][x] === '0' ) context.fillStyle = '#666';
+					else if( grid[y][x] === '.' ) context.fillStyle = '#fff';
+					else context.fillStyle = 'transparent';
+
+					context.fillRect( x*4, y*4, 4, 4 );
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<canvas id="canvas" width="360" height="360"></canvas>
+</body>
