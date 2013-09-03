@@ -16,7 +16,13 @@
 			deadZoneRange: {
 				a: 0.45,
 				b: 0.55
-			}
+			},
+			nodePadding: 2,
+			nodePaddingMin: 1,
+			nodeStraitChance: 0.25,
+			nodeCornerChance: 0.45,
+			node3wayChance: 0.65,
+			node4wayChance: 0.85
 		};
 
 		function Branch( x, y, direction ) {
@@ -199,6 +205,12 @@
 				params.deadZoneChance = value( 'txt_deadZoneChance' );
 				params.deadZoneRange.a = value( 'txt_deadZoneRangeA' );
 				params.deadZoneRange.b = value( 'txt_deadZoneRangeB' );
+				params.nodePadding = value( 'txt_nodePadding' );
+				params.nodePaddingMin = value( 'txt_nodePaddingMin' );
+				params.nodeStraitChance = value( 'txt_nodeStraitChance' );
+				params.nodeCornerChance = value( 'txt_nodeCornerChance' );
+				params.node3wayChance = value( 'txt_node3wayChance' );
+				params.node4wayChance = value( 'txt_node4wayChance' );
 				console.log( params );
 
 				generateLevel();
@@ -263,7 +275,7 @@
 				}
 			}
 
-			var nodeChance, makeNode, radius = 2;
+			var nodeChance, makeNode, radius;
 			if( params.genNodes ) {
 				for( var y = 0; y < grid.length; y++ ) {
 					for( var x = 0; x < grid[y].length; x++ ) {
@@ -275,23 +287,23 @@
 
 						nodeChance = 0;
 						if( tile === 'X' ) {
-								 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.25; } // h
-							else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.25; } // v
-							else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 0.45; } // ne
-							else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.45; } // nw
-							else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.45; } // se
-							else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.45; } // sw
-							else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.65; } // hn
-							else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // hs
-							else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.65; } // ve
-							else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // vw
-							else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = 0.85; } // i
+								 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = params.nodeStraitChance; } // h
+							else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = params.nodeStraitChance; } // v
+							else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = params.nodeCornerChance; } // ne
+							else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = params.nodeCornerChance; } // nw
+							else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = params.nodeCornerChance; } // se
+							else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = params.nodeCornerChance; } // sw
+							else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = params.node3wayChance; } // hn
+							else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = params.node3wayChance; } // hs
+							else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = params.node3wayChance; } // ve
+							else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = params.node3wayChance; } // vw
+							else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = params.node4wayChance; } // i
 
 							if( Math.random() >= 1-nodeChance ) {
 
 								// look for surrounding nodes
 								makeNode = true;
-								radius = (Math.random()*4<<0) + 1;
+								radius = (Math.random()*params.nodePadding<<0) + params.nodePaddingMin;
 								for( var j = -radius; j <= radius; j++ ) {
 									for( var k = -radius; k <= radius; k++ ) {
 										if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'N' ) makeNode = false;
@@ -495,7 +507,13 @@
 			margin: 0; 
 			background: #12171c; 
 			color: #dae1ec;
-			font: 12pt/1.2em sans-serif;
+			font: 10pt/1.1em sans-serif;
+		}
+		p {
+			margin: 0;
+		}
+		h1 {
+			margin-bottom: 32px;
 		}
 		.wrapper {
 			width: 1200px;
@@ -520,8 +538,18 @@
 			padding: 16px;
 		}
 		input.small {
-			width: 40px;
+			width: 30px;
 			text-align: center;
+		}
+		input[type=text] {
+			padding: 0;
+			border: 0;
+			background: #dae1ec;
+			border: solid 1px #12171c;
+			font: 9pt sans-serif;
+		}
+		input[type=checkbox] {
+			margin: 3px 9px 3px 10px;
 		}
 	</style>
 </head>
@@ -534,6 +562,7 @@
 			<div class="controls">
 				<form>
 					<h3>Generation Settings</h3>
+					<p>...</p>
 
 					<h3>Dead Zone Settings</h3>
 					<p><input type="checkbox" id="chk_deadZones" checked /> <label for="chk_deadZones">Generate dead zones</label></p>
@@ -549,6 +578,16 @@
 
 					<h3>Node generation</h3>
 					<p><input type="checkbox" id="chk_genNodes" checked /> <label for="chk_genNodes">Generate nodes</label></p>
+					<p>
+						<input type="text" id="txt_nodePaddingMin" class="small" value="1" />
+						<input type="text" id="txt_nodePadding" class="small" value="2" /> 
+						<label for="txt_nodePadding">Node spacing (min/max)</label> 
+					</p>
+					<p><input type="text" id="txt_nodeStraitChance" class="small" value="0.25" /> <label for="txt_nodeStraitChance">Strait chance</label> </p>
+					<p><input type="text" id="txt_nodeCornerChance" class="small" value="0.45" /> <label for="txt_nodeCornerChance">Corner chance</label> </p>
+					<p><input type="text" id="txt_node3wayChance" class="small" value="0.65" /> <label for="txt_node3wayChance">3-way chance</label> </p>
+					<p><input type="text" id="txt_node4wayChance" class="small" value="0.85" /> <label for="txt_node4wayChance">4-way chance</label> </p>
+
 
 					<br />
 					<p><input type="button" id="btn_generate" value="Generate"/></p>
