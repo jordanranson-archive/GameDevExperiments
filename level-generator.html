@@ -6,28 +6,35 @@
 		window.onload = function() {
 			var canvas = document.getElementById( 'canvas' );
 			ctx = canvas.getContext( '2d' );
+			var levelgen = new lg.Levelgen( ctx );
 
 			var value = function( e ) { return Number(document.getElementById( e ).value); }
 			var checked = function( e ) { return document.getElementById( e ).checked; }
 			document.getElementById( 'btn_generate' ).onclick = function() {
+				var params = {};
+
 				params.capEnds = checked( 'chk_capEnds' );
 				params.genNodes = checked( 'chk_genNodes' );
+
 				params.deadZones = checked( 'chk_deadZones' );
 				params.deadZoneChance = value( 'txt_deadZoneChance' );
+				params.deadZoneRange = {};
 				params.deadZoneRange.a = value( 'txt_deadZoneRangeA' );
 				params.deadZoneRange.b = value( 'txt_deadZoneRangeB' );
+
 				params.nodePadding = value( 'txt_nodePadding' );
 				params.nodePaddingMin = value( 'txt_nodePaddingMin' );
 				params.nodeStraitChance = value( 'txt_nodeStraitChance' );
 				params.nodeCornerChance = value( 'txt_nodeCornerChance' );
 				params.node3wayChance = value( 'txt_node3wayChance' );
 				params.node4wayChance = value( 'txt_node4wayChance' );
+
 				console.log( params );
 
-				//generateLevel();
+				levelgen.generate( params );
 			};
 
-			//generateLevel();
+			levelgen.generate();
 		}
 	</script>
 	<style>
