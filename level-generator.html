@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <head>
+	<style>
+		body { padding: 0; margin: 0; background: #333; }
+	</style>
 	<script>
 		var grid = [];
 		var width = 40;
@@ -7,6 +10,7 @@
 		var ctx;
 		var speed = 1;
 		var deadZones = true;
+		var process = true;
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -354,14 +358,11 @@
 					}
 				}
 
-				if( branches.length > 0 ) {
-					drawLevel( ctx );
-				}
-				else {
+				if( branches.length <= 0 && process ) {
+					process = false;
 					processLevel();
-					drawLevel( ctx );
-					clearInterval( timer );
 				}
+				drawLevel( ctx );
 			}, speed );
 		}
 
