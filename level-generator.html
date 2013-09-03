@@ -13,6 +13,9 @@
 			document.getElementById( 'btn_generate' ).onclick = function() {
 				var params = {};
 
+				params.speed = 5;
+				params.width = 40;
+
 				params.capEnds = checked( 'chk_capEnds' );
 				params.genNodes = checked( 'chk_genNodes' );
 
@@ -28,8 +31,6 @@
 				params.nodeCornerChance = value( 'txt_nodeCornerChance' );
 				params.node3wayChance = value( 'txt_node3wayChance' );
 				params.node4wayChance = value( 'txt_node4wayChance' );
-
-				console.log( params );
 
 				levelgen.generate( params );
 			};
