@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <head>
-	<style>
-		body { padding: 0; margin: 0; background: #333; }
-	</style>
 	<script>
 		var grid = [];
 		var width = 40;
@@ -11,6 +8,10 @@
 		var speed = 1;
 		var deadZones = true;
 		var process = true;
+		var params = {
+			capEnds: true,
+			genNodes: true
+		};
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -183,6 +184,15 @@
 			var canvas = document.getElementById( 'canvas' );
 			ctx = canvas.getContext( '2d' );
 
+			var value = function( e ) { return document.getElementById( e ).value; }
+			var checked = function( e ) { return document.getElementById( e ).checked; }
+			document.getElementById( 'btn_generate' ).onclick = function() {
+				params.capEnds = checked( 'chk_capEnds' );
+				params.genNodes = checked( 'chk_genNodes' );
+
+				generateLevel();
+			};
+
 			generateLevel();
 		}
 
@@ -220,11 +230,11 @@
 					nodeChance = 0;
 					if( tile === 'X' ) {
 							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = '0'; } // h
-						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // h - cap
-						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = 'M'; } // h - cap
+						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = params.capEnds?'M':'0'; } // h - cap
+						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = params.capEnds?'M':'0'; } // h - cap
 						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = '1'; } // v
-						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // v - cap
-						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // v - cap
+						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = params.capEnds?'M':'1'; } // v - cap
+						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = params.capEnds?'M':'1'; } // v - cap
 						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = '2'; } // ne
 						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = '3'; } // nw
 						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = '4'; } // se
@@ -243,44 +253,46 @@
 			}
 
 			var nodeChance, makeNode, radius = 2;
-			for( var y = 0; y < grid.length; y++ ) {
-				for( var x = 0; x < grid[y].length; x++ ) {
-					tile = grid[y][x];
-					n = grid[y-1] ? grid[y-1][x] : -1;
-					e = grid[y][x+1] ? grid[y][x+1] : -1;
-					s = grid[y+1] ? grid[y+1][x] : -1;
-					w = grid[y][x-1] ? grid[y][x-1] : -1;
+			if( params.genNodes ) {
+				for( var y = 0; y < grid.length; y++ ) {
+					for( var x = 0; x < grid[y].length; x++ ) {
+						tile = grid[y][x];
+						n = grid[y-1] ? grid[y-1][x] : -1;
+						e = grid[y][x+1] ? grid[y][x+1] : -1;
+						s = grid[y+1] ? grid[y+1][x] : -1;
+						w = grid[y][x-1] ? grid[y][x-1] : -1;
 
-					nodeChance = 0;
-					if( tile === 'X' ) {
-							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.25; } // h
-						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.25; } // v
-						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 0.45; } // ne
-						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.45; } // nw
-						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.45; } // se
-						else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.45; } // sw
-						else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.65; } // hn
-						else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // hs
-						else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.65; } // ve
-						else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // vw
-						else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = 0.85; } // i
+						nodeChance = 0;
+						if( tile === 'X' ) {
+								 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.25; } // h
+							else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.25; } // v
+							else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 0.45; } // ne
+							else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.45; } // nw
+							else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.45; } // se
+							else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.45; } // sw
+							else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.65; } // hn
+							else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // hs
+							else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.65; } // ve
+							else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // vw
+							else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = 0.85; } // i
 
-						if( Math.random() >= 1-nodeChance ) {
+							if( Math.random() >= 1-nodeChance ) {
 
-							// look for surrounding nodes
-							makeNode = true;
-							radius = (Math.random()*4<<0) + 1;
-							for( var j = -radius; j <= radius; j++ ) {
-								for( var k = -radius; k <= radius; k++ ) {
-									if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'N' ) makeNode = false;
-									if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'M' ) makeNode = false;
+								// look for surrounding nodes
+								makeNode = true;
+								radius = (Math.random()*4<<0) + 1;
+								for( var j = -radius; j <= radius; j++ ) {
+									for( var k = -radius; k <= radius; k++ ) {
+										if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'N' ) makeNode = false;
+										if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'M' ) makeNode = false;
+									}
 								}
-							}
-							
-							// do it
-							if( makeNode ) {
-								newGrid[y][x] = 'N';
-								lastNode = 0;
+								
+								// do it
+								if( makeNode ) {
+									newGrid[y][x] = 'N';
+									lastNode = 0;
+								}
 							}
 						}
 					}
@@ -292,6 +304,8 @@
 
 		function generateLevel() {
 			grid = [];
+			branches.length = 0;
+			process = true;
 
 			/* 
 				? - unexplored 
@@ -354,13 +368,13 @@
 					// remove from array if dead
 					if( !branch.alive ) {
 						branches.splice( branches.indexOf(branch), 1 );
-						console.log( 'branch dead' );
 					}
 				}
 
 				if( branches.length <= 0 && process ) {
 					process = false;
 					processLevel();
+					clearInterval( timer );
 				}
 				drawLevel( ctx );
 			}, speed );
@@ -464,7 +478,58 @@
 			}
 		}
 	</script>
+	<style>
+		body { 
+			padding: 0; 
+			margin: 0; 
+			background: #12171c; 
+			color: #dae1ec;
+			font: 12pt/1.2em sans-serif;
+		}
+		.wrapper {
+			width: 1200px;
+			height: 800px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto;
+			overflow: hidden;
+		}
+		.canvas {
+			float: left;
+			background: #000;
+			padding: 16px;
+		}
+		.controls {
+			float: left;
+			background: #242e3b;
+			margin: 0 0 0 16px;
+			padding: 16px;
+		}
+	</style>
 </head>
 <body>
-	<canvas id="canvas" width="640" height="640"></canvas>
+	<div class="wrapper">
+		<h1>Node Controller Level Generator</h1>
+			<div class="canvas">
+				<canvas id="canvas" width="640" height="640"></canvas>
+			</div>
+			<div class="controls">
+				<form>
+					<h3>Generation Settings</h3>
+					<p>...</p>
+
+					<h3>Network generation</h3>
+					<p><input type="checkbox" id="chk_capEnds" checked /> <label for="chk_capEnds">Cap ends with nodes</label></p>
+
+					<h3>Node generation</h3>
+					<p><input type="checkbox" id="chk_genNodes" checked /> <label for="chk_genNodes">Generate nodes</label></p>
+
+					<br />
+					<p><input type="button" id="btn_generate" value="Generate"/></p>
+				</form>
+			</div>
+	</div>
 </body>
