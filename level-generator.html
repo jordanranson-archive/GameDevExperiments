@@ -17,12 +17,17 @@
 			action: 'forward',
 			lastAction: '',
 			weights: [ 10, 10 ],
+			killCounter: 0,
+			alive: true,
 
 			swt: function( i ) { 
 				return arguments[++i] 
 			},
 
 			update: function() {
+				if( this.killCounter > 4 ) {
+					this.alive = false;
+				}
 
 				// determine action
 				if( this.steps <= 0 ) {
@@ -73,6 +78,9 @@
 							carve( this.x, this.y, this.radius );
 							this.steps--;
 						}
+						else {
+							this.steps = 0;
+						}
 					}
 
 					// turn
@@ -116,8 +124,11 @@
 						if( canTurn ) {
 							this.direction = turnChance;
 							this.steps = 0;
+							this.killCounter = 0;
 						}
-						console.log( '* try turning', turnChance );
+						else {
+							this.killCounter++;
+						}
 					}
 
 					// branch off
@@ -167,19 +178,19 @@
 			var sx = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
 			var sy = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
 			carve( sx, sy, 2 );
-			branches.push( new Branch( sx, sy, 1 ) );
+			branches.push( new Branch( sx, sy, 0 ) );
 
-			sx = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
-			sy = Math.round( Math.random() * (width*0.15) ) + Math.round( (width*0.05) );
-			carve( sx, sy, 2 );
-			branches.push( new Branch( sx, sy, 2 ) );
-
-			var alive = 100;
-			while( alive > 0 ) {
+			var branch;
+			while( branches.length > 0 ) {
 				for( var i = 0; i < branches.length; i++ ) {
-					branches[i].update();
+					branch = branches[i];
+					branch.update();
+
+					// remove from array if dead
+					if( !branch.alive ) {
+						branches.splice( branches.indexOf(branch), 1 );
+					}
 				}
-				alive--;
 			}
 
 			return grid;
@@ -191,7 +202,7 @@
 			if( x > width ) return false;
 			if( y > width ) return false;
 
-			if( grid[y][x] && grid[y][x] === '?' ) return true;
+			if( grid[y] && grid[y][x] && grid[y][x] === '?' ) return true;
 
 			return false;
 		}
