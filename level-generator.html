@@ -2,7 +2,7 @@
 <head>
 	<script>
 		var grid = [];
-		var width = 90;
+		var width = 40;
 		var branches = [];
 
 		function Branch( x, y, direction ) {
@@ -241,7 +241,7 @@
 
 		function drawLevel( context ) {
 			context.fillStyle = '#333';
-			context.fillRect( 0, 0, 360, 360 );
+			context.fillRect( 0, 0, 640, 640 );
 
 			for( var y = 0; y < grid.length; y++ ) {
 				for( var x = 0; x < grid[y].length; x++ ) {
@@ -249,12 +249,12 @@
 					else if( grid[y][x] === '.' ) context.fillStyle = '#fff';
 					else context.fillStyle = 'transparent';
 
-					context.fillRect( x*4, y*4, 4, 4 );
+					context.fillRect( x*16, y*16, 15, 15 );
 				}
 			}
 		}
 	</script>
 </head>
 <body>
-	<canvas id="canvas" width="360" height="360"></canvas>
+	<canvas id="canvas" width="640" height="640"></canvas>
 </body>
