@@ -6,7 +6,7 @@
 		var branches = [];
 		var ctx;
 		var speed = 1;
-		var deadZones = false;
+		var deadZones = true;
 
 		function Branch( x, y, direction ) {
 			this.x = x;
@@ -216,11 +216,11 @@
 					nodeChance = 0;
 					if( tile === 'X' ) {
 							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = '0'; } // h
-						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = '0'; } // h - cap
-						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = '0'; } // h - cap
+						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // h - cap
+						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = 'M'; } // h - cap
 						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = '1'; } // v
-						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = '1'; } // v - cap
-						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = '1'; } // v - cap
+						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // v - cap
+						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = 'M'; } // v - cap
 						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { newGrid[y][x] = '2'; } // ne
 						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { newGrid[y][x] = '3'; } // nw
 						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { newGrid[y][x] = '4'; } // se
@@ -238,7 +238,7 @@
 				}
 			}
 
-			var nodeChance, makeNode, lastNode = 0;
+			var nodeChance, makeNode, radius = 2;
 			for( var y = 0; y < grid.length; y++ ) {
 				for( var x = 0; x < grid[y].length; x++ ) {
 					tile = grid[y][x];
@@ -249,48 +249,35 @@
 
 					nodeChance = 0;
 					if( tile === 'X' ) {
-							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.10; } // h
-						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 1.00; } // h - cap
-						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 1.00; } // h - cap
-						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.10; } // v
-						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 1.00; } // v - cap
-						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 1.00; } // v - cap
-						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 0.25; } // ne
-						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.25; } // nw
-						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.25; } // se
-						else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.25; } // sw
-						else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.50; } // hn
-						else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.50; } // hs
-						else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.50; } // ve
-						else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.50; } // vw
-						else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = 0.33; } // i
+							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.25; } // h
+						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.25; } // v
+						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) { nodeChance = 0.45; } // ne
+						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.45; } // nw
+						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.45; } // se
+						else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.45; } // sw
+						else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) { nodeChance = 0.65; } // hn
+						else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // hs
+						else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) { nodeChance = 0.65; } // ve
+						else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) { nodeChance = 0.65; } // vw
+						else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) { nodeChance = 0.85; } // i
 
-						if( lastNode > 5 && Math.random() >= 1-nodeChance ) {
+						if( Math.random() >= 1-nodeChance ) {
 
 							// look for surrounding nodes
 							makeNode = true;
-							if( newGrid[y-1] ) {
-								if( newGrid[y-1][x] === 'N') makeNode = false;
-							} 
-							if( newGrid[y+1] ) {
-								if( newGrid[y+1][x] === 'N') makeNode = false;
-							} 
-							if( newGrid[y][x-1] ) {
-								if( newGrid[y][x-1] === 'N') makeNode = false;
-							} 
-							if( newGrid[y][x+1] ) {
-								if( newGrid[y][x+1] === 'N') makeNode = false;
-							} 
-							console.log( makeNode );
+							radius = (Math.random()*4<<0) + 1;
+							for( var j = -radius; j <= radius; j++ ) {
+								for( var k = -radius; k <= radius; k++ ) {
+									if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'N' ) makeNode = false;
+									if( newGrid[y+j] && newGrid[y+j][x+k] && newGrid[y+j][x+k] === 'M' ) makeNode = false;
+								}
+							}
 							
 							// do it
 							if( makeNode ) {
 								newGrid[y][x] = 'N';
 								lastNode = 0;
 							}
-						}
-						else {
-							lastNode++;
 						}
 					}
 				}
@@ -331,10 +318,10 @@
 						Math.random() > 0.95 && 
 						y > 2 && 
 						x > 2 && 
-						(y < width*0.4 || y > width*0.6) && 
-						(x < width*0.4 || x > width*0.6) && 
-						y < width-2 && 
-						x < width-2 
+						(y < width*0.45 || y > width*0.55) && 
+						(x < width*0.45 || x > width*0.55) && 
+						y < width-3 && 
+						x < width-3 
 					) {
 						grid[y][x] = '.';
 						grid[y+1][x+1] = '.';
@@ -463,16 +450,13 @@
 					}
 
 					// draw nodes
-					context.fillStyle = '#adb8c7';
 					if( tile === 'N' ) {
+						context.fillStyle = '#0ff';
 						context.fillRect( x*16, y*16, 15, 15 );
-
-						context.beginPath(); 
-						context.moveTo( x*16, y*16+15 );
-						context.lineTo( x*16+15, y*16 );
-						context.lineTo( x*16+15, y*16+15 );
-						context.closePath();
-						context.fill();
+					}
+					if( tile === 'M' ) {
+						context.fillStyle = '#ff0';
+						context.fillRect( x*16, y*16, 15, 15 );
 					}
 
 				}
