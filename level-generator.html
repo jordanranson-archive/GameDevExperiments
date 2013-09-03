@@ -30,7 +30,7 @@
 
 			update: function() {
 				if( this.killCounter > 16 ) {
-					//this.alive = false;
+					this.alive = false;
 				}
 
 				// determine action
@@ -197,6 +197,48 @@
 			return false;
 		}
 
+		function processLevel() {
+			var tile, n, e, s, w;
+			var newGrid = [];
+			for( var y = 0; y < grid.length; y++ ) {
+				newGrid[y] = [];
+			}
+
+			for( var y = 0; y < grid.length; y++ ) {
+				for( var x = 0; x < grid[y].length; x++ ) {
+					tile = grid[y][x];
+					n = grid[y-1] ? grid[y-1][x] : -1;
+					e = grid[y][x+1] ? grid[y][x+1] : -1;
+					s = grid[y+1] ? grid[y+1][x] : -1;
+					w = grid[y][x-1] ? grid[y][x-1] : -1;
+
+					if( tile === 'X' ) {
+							 if( n !== 'X' && e === 'X' && s !== 'X' && w === 'X' ) newGrid[y][x] = '0';
+						else if( n !== 'X' && e === 'X' && s !== 'X' && w !== 'X' ) newGrid[y][x] = '0';
+						else if( n !== 'X' && e !== 'X' && s !== 'X' && w === 'X' ) newGrid[y][x] = '0';
+						else if( n === 'X' && e !== 'X' && s === 'X' && w !== 'X' ) newGrid[y][x] = '1';
+						else if( n === 'X' && e !== 'X' && s !== 'X' && w !== 'X' ) newGrid[y][x] = '1';
+						else if( n !== 'X' && e !== 'X' && s === 'X' && w !== 'X' ) newGrid[y][x] = '1';
+						else if( n === 'X' && e === 'X' && s !== 'X' && w !== 'X' ) newGrid[y][x] = '2';
+						else if( n === 'X' && e !== 'X' && s !== 'X' && w === 'X' ) newGrid[y][x] = '3';
+						else if( n !== 'X' && e === 'X' && s === 'X' && w !== 'X' ) newGrid[y][x] = '4';
+						else if( n !== 'X' && e !== 'X' && s === 'X' && w === 'X' ) newGrid[y][x] = '5';
+						else if( n === 'X' && e === 'X' && s !== 'X' && w === 'X' ) newGrid[y][x] = '6';
+						else if( n !== 'X' && e === 'X' && s === 'X' && w === 'X' ) newGrid[y][x] = '7';
+						else if( n === 'X' && e === 'X' && s === 'X' && w !== 'X' ) newGrid[y][x] = '8';
+						else if( n === 'X' && e !== 'X' && s === 'X' && w === 'X' ) newGrid[y][x] = '9';
+						else if( e === 'X' && w === 'X' && n === 'X' && s === 'X' ) newGrid[y][x] = '10';
+						else newGrid[y][x] = tile;
+					}
+					else {
+						newGrid[y][x] = tile;
+					}
+				}
+			}
+
+			grid = newGrid;
+		}
+
 		function generateLevel() {
 			grid = [];
 
@@ -253,22 +295,25 @@
 			branches.push( new Branch( sx, sy, 0 ) );
 
 			var branch;
-			var i = 0;
-			setInterval( function() {
-				if( branches.length > 0 ) {
-					for( var i = 0; i < branches.length; i++ ) {
-						branch = branches[i];
-						branch.update();
+			var timer = setInterval( function() {
+				for( var k = 0; k < branches.length; k++ ) {
+					branch = branches[k];
+					branch.update();
 
-						// remove from array if dead
-						if( !branch.alive ) {
-							branches.splice( branches.indexOf(branch), 1 );
-							console.log( 'branch dead' );
-						}
+					// remove from array if dead
+					if( !branch.alive ) {
+						branches.splice( branches.indexOf(branch), 1 );
+						console.log( 'branch dead' );
 					}
+				}
 
-					i++;
+				if( branches.length > 0 ) {
 					drawLevel( ctx );
+				}
+				else {
+					processLevel();
+					drawLevel( ctx );
+					clearInterval( timer );
 				}
 			}, speed );
 		}
@@ -285,7 +330,7 @@
 		}
 
 		function carve( x, y, radius, value ) {
-			value = value ? value : '0';
+			value = value ? value : 'X';
 			for( var j = -radius; j <= radius; j++ ) {
 				for( var k = -radius; k <= radius; k++ ) {
 					if( check(x+k,y+j) ) grid[y+j][x+k] = '.';
@@ -295,16 +340,66 @@
 		}
 
 		function drawLevel( context ) {
-			context.fillStyle = '#333';
+			context.fillStyle = '#000';
 			context.fillRect( 0, 0, 640, 640 );
 
+			var tile;
 			for( var y = 0; y < grid.length; y++ ) {
 				for( var x = 0; x < grid[y].length; x++ ) {
-					if( grid[y][x] === '.' ) context.fillStyle = '#666';
-					else if( grid[y][x] === '0' ) context.fillStyle = '#fff';
-					else context.fillStyle = 'transparent';
+					tile = grid[y][x];
 
-					context.fillRect( x*16, y*16, 15, 15 );
+					if( tile !== '?' ) {
+						context.fillStyle = '#12171c';
+						context.fillRect( x*16, y*16, 15, 15 );
+					}
+
+					context.fillStyle = '#525c6b';
+					if( tile === 'X' ) {
+						context.fillRect( x*16, y*16, 15, 15 );
+					}
+					if( tile === '0' ) {
+						context.fillRect( x*16, y*16+5, 15, 5 );
+					}
+					if( tile === '1' ) {
+						context.fillRect( x*16+5, y*16, 5, 15 );
+					}
+					if( tile === '2' ) {
+						context.fillRect( x*16+5, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16, 5, 10 );
+					}
+					if( tile === '3' ) {
+						context.fillRect( x*16, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16, 5, 10 );
+					}
+					if( tile === '4' ) {
+						context.fillRect( x*16+5, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16+5, 5, 10 );
+					}
+					if( tile === '5' ) {
+						context.fillRect( x*16, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16+5, 5, 10 );
+					}
+					if( tile === '6' ) {
+						context.fillRect( x*16, y*16+5, 15, 5 );
+						context.fillRect( x*16+5, y*16, 5, 10 );
+					}
+					if( tile === '7' ) {
+						context.fillRect( x*16, y*16+5, 15, 5 );
+						context.fillRect( x*16+5, y*16+5, 5, 10 );
+					}
+					if( tile === '8' ) {
+						context.fillRect( x*16+5, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16, 5, 15 );
+					}
+					if( tile === '9' ) {
+						context.fillRect( x*16, y*16+5, 10, 5 );
+						context.fillRect( x*16+5, y*16, 5, 15 );
+					}
+					if( tile === '10' ) {
+						context.fillRect( x*16, y*16+5, 15, 5 );
+						context.fillRect( x*16+5, y*16, 5, 15 );
+					}
+
 				}
 			}
 		}
