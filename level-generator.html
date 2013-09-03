@@ -10,7 +10,13 @@
 		var process = true;
 		var params = {
 			capEnds: true,
-			genNodes: true
+			genNodes: true,
+			deadZones: true,
+			deadZoneChance: 0.05,
+			deadZoneRange: {
+				a: 0.45,
+				b: 0.55
+			}
 		};
 
 		function Branch( x, y, direction ) {
@@ -184,11 +190,16 @@
 			var canvas = document.getElementById( 'canvas' );
 			ctx = canvas.getContext( '2d' );
 
-			var value = function( e ) { return document.getElementById( e ).value; }
+			var value = function( e ) { return Number(document.getElementById( e ).value); }
 			var checked = function( e ) { return document.getElementById( e ).checked; }
 			document.getElementById( 'btn_generate' ).onclick = function() {
 				params.capEnds = checked( 'chk_capEnds' );
 				params.genNodes = checked( 'chk_genNodes' );
+				params.deadZones = checked( 'chk_deadZones' );
+				params.deadZoneChance = value( 'txt_deadZoneChance' );
+				params.deadZoneRange.a = value( 'txt_deadZoneRangeA' );
+				params.deadZoneRange.b = value( 'txt_deadZoneRangeB' );
+				console.log( params );
 
 				generateLevel();
 			};
@@ -332,12 +343,12 @@
 			for( var y = 0; y < width; y++ ) {
 				for( var x = 0; x < width; x++ ) {
 					if( 
-						deadZones &&
-						Math.random() > 0.95 && 
+						params.deadZones &&
+						Math.random() < params.deadZoneChance && 
 						y > 2 && 
 						x > 2 && 
-						(y < width*0.45 || y > width*0.55) && 
-						(x < width*0.45 || x > width*0.55) && 
+						(y < width*params.deadZoneRange.a || y > width*params.deadZoneRange.b) && 
+						(x < width*params.deadZoneRange.a || x > width*params.deadZoneRange.b) && 
 						y < width-3 && 
 						x < width-3 
 					) {
@@ -508,6 +519,10 @@
 			margin: 0 0 0 16px;
 			padding: 16px;
 		}
+		input.small {
+			width: 40px;
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
@@ -519,7 +534,15 @@
 			<div class="controls">
 				<form>
 					<h3>Generation Settings</h3>
-					<p>...</p>
+
+					<h3>Dead Zone Settings</h3>
+					<p><input type="checkbox" id="chk_deadZones" checked /> <label for="chk_deadZones">Generate dead zones</label></p>
+					<p><input type="text" id="txt_deadZoneChance" class="small" value="0.05" /> <label for="txt_deadZoneChance">Dead zone chance</label> </p>
+					<p>
+						<input type="text" id="txt_deadZoneRangeA" class="small" value="0.45" />
+						<input type="text" id="txt_deadZoneRangeB" class="small" value="0.55" />
+						<label for="txt_deadZoneRangeA">Dead zone range</label> 
+					</p>
 
 					<h3>Network generation</h3>
 					<p><input type="checkbox" id="chk_capEnds" checked /> <label for="chk_capEnds">Cap ends with nodes</label></p>
