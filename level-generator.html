@@ -4,7 +4,7 @@
 	<script type="text/javascript" src="lib/levelgen/levelgen.js"></script>
 	<script>
 		window.onload = function() {
-			ig.system = new ig.System( '#canvas', 1, 160, 160, 4 );
+			ig.system = new ig.System( '#canvas', 1, 640, 640, 1 );
 			ig.soundManager = new ig.SoundManager();
 			ig.ready = true;
 
@@ -17,7 +17,7 @@
 					levelgen.generateLevel();
 					clearInterval( t );
 				}
-			});
+			}, 1 );
 
 			var value = function( e ) { return Number(document.getElementById( e ).value); }
 			var checked = function( e ) { return document.getElementById( e ).checked; }
