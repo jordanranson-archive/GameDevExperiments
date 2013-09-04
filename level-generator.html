@@ -4,9 +4,20 @@
 	<script type="text/javascript" src="lib/levelgen/levelgen.js"></script>
 	<script>
 		window.onload = function() {
-			var canvas = document.getElementById( 'canvas' );
-			ctx = canvas.getContext( '2d' );
-			var levelgen = new lg.Levelgen( ctx );
+			ig.system = new ig.System( '#canvas', 1, 160, 160, 4 );
+			ig.soundManager = new ig.SoundManager();
+			ig.ready = true;
+
+			var loader = new lg.Loader( lg.Levelgen, ig.resources );
+			var levelgen = new lg.Levelgen( ig.system.context );
+			loader.load();
+
+			var t = setInterval( function() {
+				if( loader.done ) {
+					levelgen.generateLevel();
+					clearInterval( t );
+				}
+			});
 
 			var value = function( e ) { return Number(document.getElementById( e ).value); }
 			var checked = function( e ) { return document.getElementById( e ).checked; }
@@ -34,8 +45,6 @@
 
 				levelgen.generateLevel( params );
 			};
-
-			levelgen.generateLevel();
 		}
 	</script>
 	<style>
@@ -65,7 +74,7 @@
 		}
 		.canvas {
 			float: left;
-			background: #000;
+			background: rgba(0,0,0,0.35);
 			padding: 16px;
 		}
 		.controls {
