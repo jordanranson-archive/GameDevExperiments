@@ -43,7 +43,10 @@
 				genLevel();
 			};
 			document.getElementById( 'btn_save' ).onclick = function() { 
-				window.open( lg.Util.exportLevel( __map ) );
+				window.open( lg.Util.exportLevel( __map ).toDataURL() );
+			};
+			document.getElementById( 'btn_load' ).onclick = function() { 
+				console.log( lg.Util.importLevel( lg.Util.exportLevel( __map ) ) );
 			};
 
 
@@ -293,6 +296,7 @@
 						<input type="button" id="btn_export" value="Export Presets"/>
 						<input type="button" id="btn_import" value="Import Presets"/>
 						<input type="button" id="btn_save" value="Save Level"/>
+						<input type="button" id="btn_load" value="Load Level"/>
 					</p>
 				</form>
 			</div>
