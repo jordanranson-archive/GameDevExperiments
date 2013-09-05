@@ -19,9 +19,49 @@
 				}
 			}, 1 );
 
-			var value = function( e ) { return Number(document.getElementById( e ).value); }
-			var checked = function( e ) { return document.getElementById( e ).checked; }
-			document.getElementById( 'btn_generate' ).onclick = function() {
+			document.getElementById( 'btn_generate' ).onclick = genLevel;
+
+			var canvas = document.getElementById( 'canvas' );
+			canvas.ondragover = function() { return false; }
+			canvas.ondragenter = function() { return false; }
+			canvas.ondrop = function( e ) {
+				e.preventDefault();
+
+				var file = e.dataTransfer.files[0];
+				var reader = new FileReader();
+
+				reader.onloadend = function( e, file ) {
+					dataReceived( this.result );
+				};
+
+				reader.readAsDataURL( file );
+			};
+
+			document.body.onpaste = function( e ) {
+				e.preventDefault();
+
+				var file = e.clipboardData.items[0].getAsFile();
+				var reader = new FileReader();
+
+				reader.onload = function( e, file ) {
+					dataReceived( this.result );
+				}
+
+				reader.readAsDataURL( file );
+			};
+
+			function dataReceived( data ) {
+				var img = new Image();
+				img.src = data;
+				img.onload = function() {
+					levelgen.template.data = img;
+					genLevel();
+				}
+			}
+
+			function genLevel() {
+				var value = function( e ) { return Number(document.getElementById( e ).value); }
+				var checked = function( e ) { return document.getElementById( e ).checked; }
 				var params = {};
 
 				params.speed = 5;
@@ -44,7 +84,7 @@
 				params.node4wayChance = value( 'txt_node4wayChance' );
 
 				levelgen.drawLevel( params );
-			};
+			}
 		}
 	</script>
 	<style>
