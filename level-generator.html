@@ -6,6 +6,8 @@
 		var useTemplate = false;
 
 		window.onload = function() {
+			var templatePreview = document.getElementById( 'templatePreview' );
+
 			ig.system = new ig.System( '#canvas', 1, 640, 640, 1 );
 			ig.soundManager = new ig.SoundManager();
 			ig.ready = true;
@@ -22,7 +24,10 @@
 			}, 1 );
 
 			document.getElementById( 'btn_generate' ).onclick = genLevel;
-			document.getElementById( 'btn_reset' ).onclick = function() { useTemplate = false; };
+			document.getElementById( 'btn_reset' ).onclick = function() { 
+				useTemplate = false; 
+				templatePreview.style.display = 'none';
+			};
 
 			var canvas = document.getElementById( 'canvas' );
 			canvas.ondragover = function() { return false; }
@@ -60,6 +65,9 @@
 					levelgen.template.data = img;
 					useTemplate = true;
 					genLevel();
+
+					templatePreview.src = this.src;
+					templatePreview.style.display = 'block';
 				}
 			}
 
@@ -69,7 +77,9 @@
 				var params = {};
 
 				params.width = 40;
-				params.speed = 5;
+				params.speed = value( 'txt_drawSpeed' );
+				params.minSteps = value( 'txt_minSteps' );
+				params.maxSteps = value( 'txt_maxSteps' );
 
 				params.capEnds = checked( 'chk_capEnds' );
 				params.genNodes = checked( 'chk_genNodes' );
@@ -127,7 +137,7 @@
 		}
 		.canvas {
 			float: left;
-			background: rgba(0,0,0,0.35);
+			background: #242e3b;
 			padding: 16px;
 		}
 		.controls {
@@ -141,15 +151,22 @@
 			width: 30px;
 			text-align: center;
 		}
-		input[type=text] {
+		input {
 			padding: 0;
 			border: 0;
 			background: #dae1ec;
 			border: solid 1px #12171c;
 			font: 9pt sans-serif;
 		}
+		input[type=button] {
+			padding: 7px 9px;
+		}
 		input[type=checkbox] {
-			margin: 3px 9px 3px 10px;
+			margin: 3px 9px 5px 10px;
+		}
+		hr {
+			border: none;
+			border-top: solid 1px #525c6b;
 		}
 	</style>
 </head>
@@ -160,9 +177,10 @@
 				<canvas id="canvas" width="640" height="640"></canvas>
 			</div>
 			<div class="controls">
+
 				<div style="float: left; width: 50%;">
-					<h3>Generation Settings</h3>
-					<p>...</p>
+					<h3>Generator Settings</h3>
+					<p><input type="text" id="txt_drawSpeed" class="small" value="5" /> <label for="txt_drawSpeed">Draw speed (ms)</label> </p>
 
 					<h3>Dead Zone Settings</h3>
 					<p><input type="checkbox" id="chk_deadZones" /> <label for="chk_deadZones">Generate dead zones</label></p>
@@ -186,8 +204,10 @@
 					<p><input type="text" id="txt_node3wayChance" class="small" value="0.65" /> <label for="txt_node3wayChance">3-way chance</label> </p>
 					<p><input type="text" id="txt_node4wayChance" class="small" value="0.85" /> <label for="txt_node4wayChance">4-way chance</label> </p>
 				</div>
+
 				<div style="float: left; width: 50%;">
 					<h3>Network generation</h3>
+					<p><input type="text" id="txt_minSteps" class="small" value="1" /> <input type="text" id="txt_maxSteps" class="small" value="1" /> <label for="txt_deadZoneChance">Steps (min/max)</label> </p>
 					<p><input type="text" id="txt_forwardWeight" class="small" value="100" /> <label for="txt_forwardWeight">Forward weight</label></p>
 					<p><input type="text" id="txt_forwardDiminishRate" class="small" value="0.5" /> <label for="txt_forwardDiminishRate">Forward diminish rate</label></p>
 					<p><input type="text" id="txt_turnWeight" class="small" value="50" /> <label for="txt_turnWeight">Turn weight</label></p>
@@ -196,6 +216,9 @@
 					<p><input type="text" id="txt_branchDiminishRate" class="small" value="0.5" /> <label for="txt_branchDiminishRate">Branch diminish rate</label></p>
 					<p><input type="text" id="txt_numCachedActions" class="small" value="5" /> <label for="txt_numCachedActions">Num. cached actions</label></p>
 					<p><input type="text" id="txt_exploreRadius" class="small" value="1" /> <label for="txt_exploreRadius">Exploration radius</label></p>
+
+					<h3>Current template</h3>
+					<img id="templatePreview" src=""/>
 				</div>
 				<div style="overflow:hidden;clear:none;width:100%;height:1px;"></div>
 
