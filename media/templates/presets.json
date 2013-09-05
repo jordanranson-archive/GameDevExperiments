@@ -1,0 +1,14 @@
+{
+	"templates": {
+		"default": {"width":40,"speed":5,"minSteps":1,"maxSteps":1,"capEnds":true,"genNodes":true,"deadZones":false,"deadZoneChance":0.05,"deadZoneRange":{"a":0.45,"b":0.55},"nodePadding":2,"nodePaddingMin":1,"nodeStraitChance":0.25,"nodeCornerChance":0.45,"node3wayChance":0.65,"node4wayChance":0.85,"forwardWeight":100,"forwardDiminishRate":0.5,"turnWeight":50,"turnDiminishRate":0.5,"branchWeight":100,"branchDiminishRate":0.5,"numCachedActions":5,"exploreRadius":1},
+		"4square": {"width":40,"speed":5,"minSteps":1,"maxSteps":1,"capEnds":true,"genNodes":true,"deadZones":false,"deadZoneChance":0.05,"deadZoneRange":{"a":0.45,"b":0.55},"nodePadding":2,"nodePaddingMin":1,"nodeStraitChance":0,"nodeCornerChance":1,"node3wayChance":1,"node4wayChance":0.5,"forwardWeight":100,"forwardDiminishRate":0.25,"turnWeight":100,"turnDiminishRate":0.65,"branchWeight":100,"branchDiminishRate":0.65,"numCachedActions":5,"exploreRadius":1},
+		"balance": ,
+		"duel": {"width":40,"speed":5,"minSteps":1,"maxSteps":1,"capEnds":true,"genNodes":true,"deadZones":false,"deadZoneChance":0.05,"deadZoneRange":{"a":0.45,"b":0.55},"nodePadding":2,"nodePaddingMin":1,"nodeStraitChance":0,"nodeCornerChance":0.45,"node3wayChance":0.65,"node4wayChance":0.85,"forwardWeight":50,"forwardDiminishRate":0.5,"turnWeight":100,"turnDiminishRate":0.5,"branchWeight":100,"branchDiminishRate":0.5,"numCachedActions":5,"exploreRadius":1},
+		"metropolis": ,
+		"nightmare": {"width":40,"speed":5,"minSteps":1,"maxSteps":1,"capEnds":true,"genNodes":true,"deadZones":false,"deadZoneChance":0.05,"deadZoneRange":{"a":0.45,"b":0.55},"nodePadding":1,"nodePaddingMin":1,"nodeStraitChance":0,"nodeCornerChance":0,"node3wayChance":1,"node4wayChance":1,"forwardWeight":100,"forwardDiminishRate":0.5,"turnWeight":50,"turnDiminishRate":0.5,"branchWeight":100,"branchDiminishRate":0.5,"numCachedActions":5,"exploreRadius":1},
+		"shuriken": 
+	},
+	"presets": {
+		"sparse": {"width":40,"speed":5,"minSteps":1,"maxSteps":1,"capEnds":true,"genNodes":true,"deadZones":true,"deadZoneChance":0.025,"deadZoneRange":{"a":0.35,"b":0.65},"nodePadding":3,"nodePaddingMin":2,"nodeStraitChance":0.25,"nodeCornerChance":0.45,"node3wayChance":0.65,"node4wayChance":0.85,"forwardWeight":100,"forwardDiminishRate":0.5,"turnWeight":50,"turnDiminishRate":0.5,"branchWeight":100,"branchDiminishRate":0.5,"numCachedActions":5,"exploreRadius":2},
+	}
+}
