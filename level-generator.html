@@ -4,6 +4,7 @@
 	<script type="text/javascript" src="lib/levelgen/levelgen.js"></script>
 	<script>
 		var useTemplate = false;
+		__map = null;
 
 		window.onload = function() {
 			var templatePreview = document.getElementById( 'templatePreview' );
@@ -40,6 +41,9 @@
 				var params = prompt( 'Paste your preset here' );
 				setParams( JSON.parse( params ) );
 				genLevel();
+			};
+			document.getElementById( 'btn_save' ).onclick = function() { 
+				window.open( lg.Util.exportLevel( __map ) );
 			};
 
 
@@ -212,7 +216,7 @@
 			font: 9pt sans-serif;
 		}
 		input[type=button] {
-			padding: 7px 9px;
+			padding: 3px 5px;
 		}
 		input[type=checkbox] {
 			margin: 3px 9px 5px 10px;
@@ -288,6 +292,7 @@
 					<p>
 						<input type="button" id="btn_export" value="Export Presets"/>
 						<input type="button" id="btn_import" value="Import Presets"/>
+						<input type="button" id="btn_save" value="Save Level"/>
 					</p>
 				</form>
 			</div>
