@@ -27,12 +27,26 @@
 			document.getElementById( 'btn_reset' ).onclick = function() { 
 				useTemplate = false; 
 				templatePreview.style.display = 'none';
+				document.getElementById( 'controls' ).reset();
+			};
+			document.getElementById( 'btn_clearTemplate' ).onclick = function() { 
+				useTemplate = false; 
+				templatePreview.style.display = 'none';
+			};
+			document.getElementById( 'btn_export' ).onclick = function() { 
+				prompt( 'Copy the string below to save your presets', JSON.stringify( getParams() ) );
+			};
+			document.getElementById( 'btn_import' ).onclick = function() { 
+				var params = prompt( 'Paste your preset here' );
+				setParams( JSON.parse( params ) );
+				genLevel();
 			};
 
+
 			var canvas = document.getElementById( 'canvas' );
-			canvas.ondragover = function() { return false; }
-			canvas.ondragenter = function() { return false; }
-			canvas.ondrop = function( e ) {
+			document.body.ondragover = function() { return false; }
+			document.body.ondragenter = function() { return false; }
+			document.body.ondrop = function( e ) {
 				e.preventDefault();
 
 				var file = e.dataTransfer.files[0];
@@ -72,8 +86,14 @@
 			}
 
 			function genLevel() {
+				var params = getParams();
+				levelgen.drawLevel( params, useTemplate );
+			}
+
+			function getParams() {
 				var value = function( e ) { return Number(document.getElementById( e ).value); }
 				var checked = function( e ) { return document.getElementById( e ).checked; }
+
 				var params = {};
 
 				params.width = 40;
@@ -106,7 +126,40 @@
 				params.numCachedActions = value( 'txt_numCachedActions' );
 				params.exploreRadius = value( 'txt_exploreRadius' );
 
-				levelgen.drawLevel( params, useTemplate );
+				return params;
+			}
+
+			function setParams( params ) {
+				var value = function( e, v ) { document.getElementById( e ).value = v; }
+				var checked = function( e, v ) { document.getElementById( e ).checked = v; }
+
+				value( 'txt_drawSpeed', params.speed );
+				value( 'txt_minSteps', params.minSteps );
+				value( 'txt_maxSteps', params.maxSteps );
+
+				checked( 'chk_capEnds', params.capEnds );
+				checked( 'chk_genNodes', params.genNodes );
+
+				checked( 'chk_deadZones', params.deadZones );
+				value( 'txt_deadZoneChance', params.deadZoneChance );
+				value( 'txt_deadZoneRangeA', params.deadZoneRange.a );
+				value( 'txt_deadZoneRangeB', params.deadZoneRange.b );
+
+				value( 'txt_nodePadding', params.nodePadding );
+				value( 'txt_nodePaddingMin', params.nodePaddingMin );
+				value( 'txt_nodeStraitChance', params.nodeStraitChance );
+				value( 'txt_nodeCornerChance', params.nodeCornerChance );
+				value( 'txt_node3wayChance', params.node3wayChance );
+				value( 'txt_node4wayChance', params.node4wayChance );
+
+				value( 'txt_forwardWeight', params.forwardWeight );
+				value( 'txt_forwardDiminishRate', params.forwardDiminishRate );
+				value( 'txt_turnWeight', params.turnWeight );
+				value( 'txt_turnDiminishRate', params.turnDiminishRate );
+				value( 'txt_branchWeight', params.branchWeight );
+				value( 'txt_branchDiminishRate', params.branchDiminishRate );
+				value( 'txt_numCachedActions', params.numCachedActions );
+				value( 'txt_exploreRadius', params.exploreRadius );
 			}
 		}
 	</script>
@@ -177,59 +230,66 @@
 				<canvas id="canvas" width="640" height="640"></canvas>
 			</div>
 			<div class="controls">
+				<form id="controls">
+					<div style="float: left; width: 50%;">
+						<h3>Generator Settings</h3>
+						<p><input type="text" id="txt_drawSpeed" class="small" value="5" /> <label for="txt_drawSpeed">Draw speed (ms)</label> </p>
 
-				<div style="float: left; width: 50%;">
-					<h3>Generator Settings</h3>
-					<p><input type="text" id="txt_drawSpeed" class="small" value="5" /> <label for="txt_drawSpeed">Draw speed (ms)</label> </p>
+						<h3>Dead Zone Settings</h3>
+						<p><input type="checkbox" id="chk_deadZones" /> <label for="chk_deadZones">Generate dead zones</label></p>
+						<p><input type="text" id="txt_deadZoneChance" class="small" value="0.05" /> <label for="txt_deadZoneChance">Dead zone chance</label> </p>
+						<p>
+							<input type="text" id="txt_deadZoneRangeA" class="small" value="0.45" />
+							<input type="text" id="txt_deadZoneRangeB" class="small" value="0.55" />
+							<label for="txt_deadZoneRangeA">Dead zone range</label> 
+						</p>
 
-					<h3>Dead Zone Settings</h3>
-					<p><input type="checkbox" id="chk_deadZones" /> <label for="chk_deadZones">Generate dead zones</label></p>
-					<p><input type="text" id="txt_deadZoneChance" class="small" value="0.05" /> <label for="txt_deadZoneChance">Dead zone chance</label> </p>
+						<h3>Node generation</h3>
+						<p><input type="checkbox" id="chk_genNodes" checked /> <label for="chk_genNodes">Generate nodes</label></p>
+						<p><input type="checkbox" id="chk_capEnds" checked /> <label for="chk_capEnds">Cap ends with nodes</label></p>
+						<p>
+							<input type="text" id="txt_nodePaddingMin" class="small" value="1" />
+							<input type="text" id="txt_nodePadding" class="small" value="2" /> 
+							<label for="txt_nodePadding">Node spacing (min/max)</label> 
+						</p>
+						<p><input type="text" id="txt_nodeStraitChance" class="small" value="0.25" /> <label for="txt_nodeStraitChance">Strait chance</label> </p>
+						<p><input type="text" id="txt_nodeCornerChance" class="small" value="0.45" /> <label for="txt_nodeCornerChance">Corner chance</label> </p>
+						<p><input type="text" id="txt_node3wayChance" class="small" value="0.65" /> <label for="txt_node3wayChance">3-way chance</label> </p>
+						<p><input type="text" id="txt_node4wayChance" class="small" value="0.85" /> <label for="txt_node4wayChance">4-way chance</label> </p>
+					</div>
+
+					<div style="float: left; width: 50%;">
+						<h3>Network generation</h3>
+						<p><input type="text" id="txt_minSteps" class="small" value="1" /> <input type="text" id="txt_maxSteps" class="small" value="1" /> <label for="txt_deadZoneChance">Steps (min/max)</label> </p>
+						<p><input type="text" id="txt_forwardWeight" class="small" value="100" /> <label for="txt_forwardWeight">Forward weight</label></p>
+						<p><input type="text" id="txt_forwardDiminishRate" class="small" value="0.5" /> <label for="txt_forwardDiminishRate">Forward diminish rate</label></p>
+						<p><input type="text" id="txt_turnWeight" class="small" value="50" /> <label for="txt_turnWeight">Turn weight</label></p>
+						<p><input type="text" id="txt_turnDiminishRate" class="small" value="0.5" /> <label for="txt_turnDiminishRate">Turn diminish rate</label></p>
+						<p><input type="text" id="txt_branchWeight" class="small" value="100" /> <label for="txt_branchWeight">Branch weight</label></p>
+						<p><input type="text" id="txt_branchDiminishRate" class="small" value="0.5" /> <label for="txt_branchDiminishRate">Branch diminish rate</label></p>
+						<p><input type="text" id="txt_numCachedActions" class="small" value="5" /> <label for="txt_numCachedActions">Num. cached actions</label></p>
+						<p><input type="text" id="txt_exploreRadius" class="small" value="1" /> <label for="txt_exploreRadius">Exploration radius</label></p>
+
+						<h3>Current template</h3>
+						<img id="templatePreview" src=""/>
+					</div>
+					<div style="overflow:hidden;clear:none;width:100%;height:1px;"></div>
+
+					<br />
+					<hr />
+					<br />
+
 					<p>
-						<input type="text" id="txt_deadZoneRangeA" class="small" value="0.45" />
-						<input type="text" id="txt_deadZoneRangeB" class="small" value="0.55" />
-						<label for="txt_deadZoneRangeA">Dead zone range</label> 
+						<input type="button" id="btn_generate" value="Generate"/>
+						<input type="button" id="btn_reset" value="Reset"/>
+						<input type="button" id="btn_clearTemplate" value="Clear Template"/>
 					</p>
-
-					<h3>Node generation</h3>
-					<p><input type="checkbox" id="chk_genNodes" checked /> <label for="chk_genNodes">Generate nodes</label></p>
-					<p><input type="checkbox" id="chk_capEnds" checked /> <label for="chk_capEnds">Cap ends with nodes</label></p>
+					<br />
 					<p>
-						<input type="text" id="txt_nodePaddingMin" class="small" value="1" />
-						<input type="text" id="txt_nodePadding" class="small" value="2" /> 
-						<label for="txt_nodePadding">Node spacing (min/max)</label> 
+						<input type="button" id="btn_export" value="Export Presets"/>
+						<input type="button" id="btn_import" value="Import Presets"/>
 					</p>
-					<p><input type="text" id="txt_nodeStraitChance" class="small" value="0.25" /> <label for="txt_nodeStraitChance">Strait chance</label> </p>
-					<p><input type="text" id="txt_nodeCornerChance" class="small" value="0.45" /> <label for="txt_nodeCornerChance">Corner chance</label> </p>
-					<p><input type="text" id="txt_node3wayChance" class="small" value="0.65" /> <label for="txt_node3wayChance">3-way chance</label> </p>
-					<p><input type="text" id="txt_node4wayChance" class="small" value="0.85" /> <label for="txt_node4wayChance">4-way chance</label> </p>
-				</div>
-
-				<div style="float: left; width: 50%;">
-					<h3>Network generation</h3>
-					<p><input type="text" id="txt_minSteps" class="small" value="1" /> <input type="text" id="txt_maxSteps" class="small" value="1" /> <label for="txt_deadZoneChance">Steps (min/max)</label> </p>
-					<p><input type="text" id="txt_forwardWeight" class="small" value="100" /> <label for="txt_forwardWeight">Forward weight</label></p>
-					<p><input type="text" id="txt_forwardDiminishRate" class="small" value="0.5" /> <label for="txt_forwardDiminishRate">Forward diminish rate</label></p>
-					<p><input type="text" id="txt_turnWeight" class="small" value="50" /> <label for="txt_turnWeight">Turn weight</label></p>
-					<p><input type="text" id="txt_turnDiminishRate" class="small" value="0.5" /> <label for="txt_turnDiminishRate">Turn diminish rate</label></p>
-					<p><input type="text" id="txt_branchWeight" class="small" value="100" /> <label for="txt_branchWeight">Branch weight</label></p>
-					<p><input type="text" id="txt_branchDiminishRate" class="small" value="0.5" /> <label for="txt_branchDiminishRate">Branch diminish rate</label></p>
-					<p><input type="text" id="txt_numCachedActions" class="small" value="5" /> <label for="txt_numCachedActions">Num. cached actions</label></p>
-					<p><input type="text" id="txt_exploreRadius" class="small" value="1" /> <label for="txt_exploreRadius">Exploration radius</label></p>
-
-					<h3>Current template</h3>
-					<img id="templatePreview" src=""/>
-				</div>
-				<div style="overflow:hidden;clear:none;width:100%;height:1px;"></div>
-
-				<br />
-				<hr />
-				<br />
-
-				<p>
-					<input type="button" id="btn_generate" value="Generate"/>
-					<input type="button" id="btn_reset" value="Clear Template"/>
-				</p>
+				</form>
 			</div>
 	</div>
 </body>
