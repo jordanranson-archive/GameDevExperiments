@@ -31,6 +31,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "lib/game/main.js",
+			"settings":
+			{
+				"buffer_size": 8886,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "lib/game/entities/camera.js",
+			"settings":
+			{
+				"buffer_size": 5553,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "lib/impact/input.js",
+			"settings":
+			{
+				"buffer_size": 6981,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/game/entities/node.js",
+			"settings":
+			{
+				"buffer_size": 10801,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -47,7 +79,10 @@
 	},
 	"console":
 	{
-		"height": 160.0
+		"height": 160.0,
+		"history":
+		[
+		]
 	},
 	"distraction_free":
 	{
@@ -60,11 +95,14 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/enums.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/levelgen/levelgen.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/camera.js",
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/node.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/input.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/enums.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/image.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/game.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/delay.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/3d.js",
@@ -151,7 +189,7 @@
 	],
 	"find":
 	{
-		"height": 37.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -165,6 +203,44 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"camera",
+			"mesh",
+			"render",
+			"consol",
+			"ig.system.canvas",
+			"posz",
+			"state",
+			"pressed",
+			"setteam",
+			"camera.position.z =",
+			"console.lo",
+			"z",
+			" 27",
+			" 10",
+			"+22",
+			" 5",
+			"15",
+			"+5",
+			"16",
+			"resize",
+			"this.",
+			"resize",
+			"ground",
+			"import",
+			"loadLevel",
+			"this.context",
+			"10 );",
+			" 15 )",
+			"15,",
+			" 5 )",
+			"5 )",
+			" 5,",
+			"5,",
+			"10,",
+			"80+5",
+			"16",
+			"draw",
+			"drawlevel",
 			");\n",
 			"this.three.",
 			"window.",
@@ -254,45 +330,7 @@
 			"owner",
 			"checkAgainst",
 			"viewDistance",
-			"heal",
-			"getHome",
-			"ig.state.red",
-			"ig.state.blue",
-			"barracks",
-			"reviving",
-			"reviv",
-			"revive",
-			"pause",
-			"coins",
-			"haslevel",
-			"COSTS 0 COINS",
-			"hasLevel",
-			"coin",
-			"kill: function",
-			"slice",
-			"kill",
-			");",
-			"300",
-			"animSheet",
-			"realMaxVel",
-			"toggleModifier",
-			"stealth",
-			"gravityFactor",
-			"score =",
-			"check",
-			"type",
-			"handle",
-			"miss",
-			"slow",
-			"stun",
-			"styb",
-			"knockedDown",
-			"this.canMove",
-			"player",
-			"}\n",
-			"modifier: [",
-			"slow",
-			"channel"
+			"heal"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -300,6 +338,24 @@
 		"regex": false,
 		"replace_history":
 		[
+			"document",
+			" 25",
+			" 30",
+			"+21",
+			"48",
+			"+22",
+			"48",
+			"",
+			"50 );",
+			" 80 )",
+			"80,",
+			" 25 )",
+			"25 )",
+			" 25,",
+			"25,",
+			"50,",
+			"80+25",
+			"80",
 			"__",
 			"this.three.",
 			"this.canMove()",
@@ -353,14 +409,130 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "lib/game/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8886,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5392,
+								5392
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3104.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/game/entities/camera.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5553,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1384,
+								1384
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 432.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/impact/input.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6981,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3584,
+								3584
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2808.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "lib/game/entities/node.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1555,
+								1555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 857.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -389,9 +561,10 @@
 		]
 	},
 	"menu_visible": true,
+	"project": "Impact3D.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -410,10 +583,24 @@
 		],
 		"width": 0.0
 	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 163.0,
-	"status_bar_visible": true
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
 }
