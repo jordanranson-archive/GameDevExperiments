@@ -1,0 +1,17 @@
+{
+  "name": "node-controller",
+  "main": "package.html",
+  "description": "Node Controller game",
+  "version": "0.1.0",
+  "window": {
+    "title": "Node Controller",
+	"icon": "app.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 1024,
+    "height": 768,
+    "resizable": false,
+    "position": "mouse",
+    "fullscreen": true
+  }
+}

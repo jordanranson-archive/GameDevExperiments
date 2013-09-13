@@ -32,18 +32,10 @@
 	"buffers":
 	[
 		{
-			"file": "lib/game/main.js",
+			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 10088,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "lib/game/entities/tooltip.js",
-			"settings":
-			{
-				"buffer_size": 2796,
+				"buffer_size": 298,
 				"line_ending": "Windows"
 			}
 		}
@@ -79,14 +71,18 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/package.html",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/package.json",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/tooltip.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/three/three.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/node.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/input.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/camera.js",
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/levelgen/levelgen.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/enums.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/image.js",
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/game.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/delay.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/3d.js",
@@ -393,63 +389,34 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "lib/game/main.js",
+					"file": "package.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10088,
+						"buffer_size": 298,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5198,
-								5120
+								49,
+								49
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3085.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "lib/game/entities/tooltip.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2796,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2427,
-								2427
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1331.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
