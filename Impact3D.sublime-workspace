@@ -35,31 +35,15 @@
 			"file": "lib/game/main.js",
 			"settings":
 			{
-				"buffer_size": 8886,
+				"buffer_size": 10088,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "lib/game/entities/camera.js",
+			"file": "lib/game/entities/tooltip.js",
 			"settings":
 			{
-				"buffer_size": 5553,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "lib/impact/input.js",
-			"settings":
-			{
-				"buffer_size": 6981,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/game/entities/node.js",
-			"settings":
-			{
-				"buffer_size": 10801,
+				"buffer_size": 2796,
 				"line_ending": "Windows"
 			}
 		}
@@ -95,11 +79,11 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/levelgen/levelgen.js",
-		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/camera.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/node.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/input.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/entities/camera.js",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/index.html",
+		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/levelgen/levelgen.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/enums.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/impact/image.js",
 		"/C/Users/Jordan/Documents/GitHub/GameDevExperiments/lib/game/main.js",
@@ -203,6 +187,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"planeSize",
+			"init3d",
+			"generate",
+			"console",
 			"camera",
 			"mesh",
 			"render",
@@ -326,11 +314,7 @@
 			"lastAttacker",
 			"findTarget",
 			"creeps",
-			"minions",
-			"owner",
-			"checkAgainst",
-			"viewDistance",
-			"heal"
+			"minions"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -409,7 +393,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -418,15 +402,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8886,
+						"buffer_size": 10088,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5392,
-								5392
+								5198,
+								5120
 							]
 						],
 						"settings":
@@ -436,26 +420,26 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3104.0,
+						"translation.y": 3085.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "lib/game/entities/camera.js",
+					"file": "lib/game/entities/tooltip.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5553,
+						"buffer_size": 2796,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1384,
-								1384
+								2427,
+								2427
 							]
 						],
 						"settings":
@@ -465,64 +449,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 432.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "lib/impact/input.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6981,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3584,
-								3584
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2808.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "lib/game/entities/node.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10801,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1555,
-								1555
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 857.0,
+						"translation.y": 1331.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
