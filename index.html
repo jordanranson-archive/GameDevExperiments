@@ -11,18 +11,44 @@
 			padding: 0;
 			font-size: 12pt;
 		}
-		
 		canvas {
 			position: absolute;
 			left: 0;
 			right: 0;
 			top: 0;
 			bottom: 0;
-			margin: auto;
 			z-index: 50;
 		}
 		canvas:first-child {
 			z-index: 100;
+			display: none;
+		}
+		.tooltip {
+			position: absolute;
+			padding: 10px;
+			background: rgba( 0,0,0,0.7 );
+			border: solid 1px #666;
+			z-index: 150;
+			display: none;
+		}
+		#statsTooltip {
+			text-align: center;
+			width: 26%;
+			left: 50%;
+			margin-left: -13%;
+			bottom: 15px;
+		}
+		#statsTooltip div {
+			display: inline-block;
+			margin-right: 10px;
+			font-size: 24pt;
+			color: #fff;
+		}
+		#combatTooltip {
+			text-align: center;
+			top: 10px;
+			left: 10px;
+			bottom: 15px;
 			display: none;
 		}
 	</style>
@@ -32,5 +58,14 @@
 <body>
 	<canvas id="canvas"></canvas>
 	<canvas id="canvas2"></canvas>
+	<div class="tooltip stats" data-team="0" id="statsTooltip">
+		<div class="core"></div>
+		<div class="p">999</div>
+		<div class="d">999</div>
+		<div class="m">999</div>
+	</div>
+	<div class="tooltip combat" id="combatTooltip">
+
+	</div>
 </body>
 </html>
